@@ -1,18 +1,23 @@
 import Header from "./components/common/header";
 import Footer from "./components/common/footer";
-import { Outlet } from "react-router";
-import { ThemeProvider } from "./contexts/themeProvider";
+import { BrowserRouter as Router, Routes, Route } from "react-router";
 
+import Home from "./components/home/home";
+import ErrorPage from "./pages/errors/errorPage";
+import { ThemeProvider } from "./contexts/themeProvider";
 
 function App() {
   return (
-    <ThemeProvider>
-      <Header />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider>
+        <Header />
+        <Routes>
+            <Route index element={<Home />} />
+            <Route path="*" element={<ErrorPage />} />
+        </Routes>
+        <Footer />
+      </ThemeProvider>
+    </Router>
   );
 }
 

@@ -12,8 +12,7 @@ function Home() {
         </p>
         <img
           className="mx-auto mb-8 rounded-full  shadow-lg w-[250px]"
-          src="./src/assets/imgs/my_img2.webp"
-          // src="/favicons/K.svg"
+          src="/favicons/K.svg"
           alt="my-image"
         />
         <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
