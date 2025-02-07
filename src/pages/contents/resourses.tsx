@@ -15,7 +15,7 @@ type Tool = {
 };
 
 type Resource = {
-  category: string;
+  category: string | string[];
   tool?: string;
   tools?: Tool[];
   description?: string;
@@ -25,7 +25,7 @@ type Resource = {
 
 const resources: Resource[] = [
   {
-    category: "Database",
+    category: ["Database", "Storage"],
     tool: "Supabase",
     description: "PostgreSQL database with real-time capabilities",
     icon: Database,
@@ -88,9 +88,18 @@ function ResourceCard({ resource }: { resource: Resource }) {
           <Icon className={`w-6 h-6 ${color}`} />
         </div>
         <div className="flex-1">
-          <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-            {category}
-          </p>
+          {Array.isArray(category) ? (
+            category.map((cat) => (
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                {cat}
+              </p>
+            ))
+          ) : (
+            <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+              {category}
+            </p>
+          )}
+
           {tools ? (
             <div className="mt-2 space-y-3">
               {tools.map((t: Tool, index: number) => (
