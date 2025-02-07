@@ -9,6 +9,7 @@ import ErrorPage from "./pages/errors/errorPage";
 import { ThemeProvider } from "./contexts/themeProvider";
 import AboutMe from "./pages/contents/about";
 import ContactMe from "./pages/contents/contact";
+import ResoursesInfo from "./pages/contents/resourses";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="*" element={<ErrorPage />} />
             <Route path="/about" element={<AboutMe />} />
             <Route path="/contact" element={<ContactMe />} />
+            <Route path="/resourses" element={<ResoursesInfo />} />
         </Routes>
         <Footer />
       </ThemeProvider>
