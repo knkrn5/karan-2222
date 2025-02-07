@@ -4,7 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router";
 
 import Home from "./components/home/home";
 import ErrorPage from "./pages/errors/errorPage";
+
+
 import { ThemeProvider } from "./contexts/themeProvider";
+import AboutMe from "./pages/contents/about";
+import ContactMe from "./pages/contents/contact";
 
 function App() {
   return (
@@ -14,6 +18,8 @@ function App() {
         <Routes>
             <Route index element={<Home />} />
             <Route path="*" element={<ErrorPage />} />
+            <Route path="/about" element={<AboutMe />} />
+            <Route path="/contact" element={<ContactMe />} />
         </Routes>
         <Footer />
       </ThemeProvider>
