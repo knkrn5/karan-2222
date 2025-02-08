@@ -10,7 +10,9 @@ import { ThemeProvider } from "./contexts/themeProvider";
 import AboutMe from "./pages/contents/about";
 import ContactMe from "./pages/contents/contact";
 import ResoursesInfo from "./pages/contents/resourses";
+
 import Test from "./pages/test";
+import Github from "./pages/github";
 
 
 function App() {
@@ -24,7 +26,9 @@ function App() {
             <Route path="/about" element={<AboutMe />} />
             <Route path="/contact" element={<ContactMe />} />
             <Route path="/resourses" element={<ResoursesInfo />} />
+
             <Route path="/test" element={<Test />} />
+            <Route path="/github" element={<Github />} />
 
         </Routes>
         <Footer />
