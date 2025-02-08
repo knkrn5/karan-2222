@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
+    "noUnusedLocals": false,
     "forceConsistentCasingInFileNames": true
   },
   "files": [],
