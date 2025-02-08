@@ -12,9 +12,11 @@ export default function Github() {
 
   useEffect(() => {
     axios
-      .get("https://api.github.com/users/knkrn5")
+    //   .get("https://api.github.com/users/knkrn5")
+      .get("/api/github")
       .then((res) => {
-        setgithubInfo(res.data);
+        console.log(res)
+        setgithubInfo(res.data.user);
       })
       .catch((error) => {
         console.log(error);
