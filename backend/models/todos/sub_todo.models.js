@@ -16,3 +16,10 @@ const subTodoSchema =  mongoose.Schema({
 }, {timestamps: true})
 
 export const SubTodo =  mongoose.model("SubTodo", subTodoSchema)
+
+
+const person = (name, email)=>{
+    name = "karna";
+    email = "karan@gmail.com";
+    return {name, email};
+}
