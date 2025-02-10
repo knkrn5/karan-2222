@@ -1,5 +1,5 @@
 // import React, { useEffect, useState } from 'react';
-import { Database, Cloud, Globe2, Server, FileCode2, LucideIcon, Blocks } from 'lucide-react';
+import { Database, Cloud, Server, FileCode2, LucideIcon, Blocks } from 'lucide-react';
 
 type Tool = {
   name: string;
