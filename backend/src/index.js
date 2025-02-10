@@ -10,6 +10,15 @@ import connectDB from "../db/index.js";
 const app = express();
 
 
+/* ;(async () =>{
+  try {
+    await connectDB()
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+})() */
+
 connectDB()
 .then(() => {
   app.listen(process.env.PORT || 3000, () => {

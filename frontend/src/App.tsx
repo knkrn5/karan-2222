@@ -13,6 +13,7 @@ import ResoursesInfo from "./pages/contents/resourses";
 
 import Test from "./pages/test";
 import Github from "./pages/github";
+import TeamPage from "./pages/team";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path="*" element={<ErrorPage />} />
             <Route path="/about" element={<AboutMe />} />
             <Route path="/contact" element={<ContactMe />} />
+            <Route path="/team" element={<TeamPage />} />
             <Route path="/resourses" element={<ResoursesInfo />} />
 
             <Route path="/test" element={<Test />} />
