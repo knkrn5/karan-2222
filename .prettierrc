@@ -1,8 +1,8 @@
 {
     "semi": true,
-    "trailingComma": "all",
+    "trailingComma": "es5",
     "singleQuote": true,
-    "printWidth": 2000,
+    "printWidth": 200,
     "endOfLine": "auto"
   }
   

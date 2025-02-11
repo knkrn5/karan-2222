@@ -13,6 +13,8 @@ type Resource = {
   tools?: Tool[];
 };
 
+
+// factory function
 function createResource(category: string | string[], icon: LucideIcon, color: string, tools?: Tool[]): Resource {
   return {
     category,
@@ -22,45 +24,78 @@ function createResource(category: string | string[], icon: LucideIcon, color: st
   };
 }
 
+// prettier-ignore
 const resources = [
-  createResource(['Database', 'Storage'], Database, 'text-emerald-500', [
-    {
-      name: 'Supabase',
-      description: 'PostgreSQL database with real-time capabilities',
-    },
-    {
-      name: 'PostgreSQL',
-      description: 'Real-time database with ACID compliance',
-    },
-  ]),
-  createResource(['Hosting'], Cloud, 'text-blue-500', [
-    {
-      name: 'Netlify',
-      description: 'Modern hosting platform with CI/CD',
-    },
-  ]),
-  createResource(['CMS'], FileCode2, 'text-purple-500', [
-    {
-      name: 'Contentful',
-      description: 'Headless content management system',
-    },
-    {
-      name: 'Cloudinary',
-      description: 'Headless content management system',
-    },
-  ]),
-  createResource(['Backend'], Server, 'text-green-500', [
-    {
-      name: 'Node.js',
-      description: 'JavaScript runtime environment',
-    },
-  ]),
-  createResource(['Framework'], Blocks, 'text-cyan-500', [
-    {
-      name: 'React',
-      description: 'JavaScript library for building user interfaces',
-    },
-  ]),
+  createResource(
+    ["Database", "Storage"],
+    Database,
+    "text-emerald-500",
+    [
+      {
+        name: "Supabase",
+        description:
+          "PostgreSQL database with real-time capabilities",
+      },
+      {
+        name: "PostgreSQL",
+        description:
+          "Real-time database with ACID compliance",
+      },
+    ]
+  ),
+  createResource(
+    ["Hosting"],
+    Cloud,
+    "text-blue-500",
+    [
+      {
+        name: "Netlify",
+        description:
+          "Modern hosting platform with CI/CD",
+      },
+    ]
+  ),
+  createResource(
+    ["CMS"],
+    FileCode2,
+    "text-purple-500",
+    [
+      {
+        name: "Contentful",
+        description:
+          "Headless content management system",
+      },
+      {
+        name: "Cloudinary",
+        description:
+          "Headless content management system",
+      },
+    ]
+  ),
+  createResource(
+    ["Backend"],
+    Server,
+    "text-green-500",
+    [
+      {
+        name: "Node.js",
+        description:
+          "JavaScript runtime environment",
+      },
+    ]
+  ),
+  createResource(
+    ["Framework"],
+    Blocks,
+    "text-cyan-500",
+    [
+      {
+        name: "React",
+        description:
+          "JavaScript library for building user interfaces",
+      },
+    ]
+  ),
 ];
 
 function ResourceCard({ resource }: { resource: Resource }) {
@@ -73,8 +108,15 @@ function ResourceCard({ resource }: { resource: Resource }) {
           <Icon className={`w-6 h-6 ${color}`} />
         </div>
         <div className="flex-1">
-          {Array.isArray(category) ? category.map((cat, i) => <p key={i} className="text-sm font-medium text-gray-500 dark:text-gray-400">{cat}</p>) 
-          : <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{category}</p>}
+          {Array.isArray(category) ? (
+            category.map((cat, i) => (
+              <p key={i} className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                {cat}
+              </p>
+            ))
+          ) : (
+            <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{category}</p>
+          )}
 
           {tools && (
             <div className="mt-2 space-y-3">
