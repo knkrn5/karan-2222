@@ -10,25 +10,26 @@ type Resource = {
   icon: LucideIcon;
   color: string;
   tools?: Tool[];
-  favColor(): string;
 };
 
-/* function favColor(this: Resource): string {
-  return this.color;
-}
- */
 
-/* class createResource {
+class createResource {
+  category: string | string[];
+  icon: LucideIcon;
+  color: string;
+  tools?: Tool[];
+
   constructor(category: string | string[], icon: LucideIcon, color: string, tools?: Tool[]) {
     this.category = category;
     this.icon = icon;
     this.color = color;
     this.tools = tools;
+    
   }
-} */
+}
 
 // factory function
-function createResource(category: string | string[], icon: LucideIcon, color: string, tools?: Tool[]): Resource {
+/* function createResource(category: string | string[], icon: LucideIcon, color: string, tools?: Tool[]): Resource {
   return {
     category,
     tools,
@@ -36,11 +37,11 @@ function createResource(category: string | string[], icon: LucideIcon, color: st
     color,
     favColor: () => color
   };
-}
+} */
 
 // prettier-ignore
 const resources = [
-  createResource(
+  new createResource(
     ["Database", "Storage"],
     Database,
     "text-emerald-500",
@@ -55,7 +56,7 @@ const resources = [
       },
     ]
   ),
-  createResource(
+  new createResource(
     ["Hosting"],
     Cloud,
     "text-blue-500",
@@ -66,7 +67,7 @@ const resources = [
       },
     ]
   ),
-  createResource(
+  new createResource(
     ["CMS"],
     FileCode2,
     "text-purple-500",
@@ -81,7 +82,7 @@ const resources = [
       },
     ]
   ),
-  createResource(
+  new createResource(
     ["Backend"],
     Server,
     "text-green-500",
@@ -92,7 +93,7 @@ const resources = [
       },
     ]
   ),
-  createResource(
+  new createResource(
     ["Framework"],
     Blocks,
     "text-cyan-500",
@@ -106,13 +107,13 @@ const resources = [
 ];
 
 function ResourceCard({ resource }: { resource: Resource }) {
-  const { category, tools, icon: Icon, favColor } = resource;
+  const { category, tools, icon: Icon, color} = resource;
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       <div className="flex items-start space-x-4">
-        <div className={`p-3 rounded-lg bg-gray-50 dark:bg-gray-700 ${favColor()} bg-opacity-10 dark:bg-opacity-20`}>
-          <Icon className={`w-6 h-6 ${favColor()}`} />
+        <div className={`p-3 rounded-lg bg-gray-50 dark:bg-gray-700 ${color} bg-opacity-10 dark:bg-opacity-20`}>
+          <Icon className={`w-6 h-6 ${color}`} />
         </div>
         <div className="flex-1">
           {Array.isArray(category) ? (
@@ -137,7 +138,7 @@ function ResourceCard({ resource }: { resource: Resource }) {
           )}
         </div>
       </div>
-      <div className={`mt-4 font-semibold ${favColor()}`}>{favColor()}</div>
+      {/* <div className={`mt-4 font-semibold ${favColor()}`}>{favColor()}</div> */}
     </div>
   );
 }

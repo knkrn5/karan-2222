@@ -35,7 +35,7 @@ function Contact() {
 
       <div className="grid grid-cols-1 p-6 lg:grid-cols-2 gap-8">
         {/* Contact Details Section */}
-        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 p-8 rounded-2xl shadow-lg">
+        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 p-8 rounded-2xl drop-shadow-[0_35px_35px_rgba(255,0,0,1)]">
           <div className="space-y-8">
             <div className="flex items-start space-x-6">
               <div className="flex-shrink-0">
