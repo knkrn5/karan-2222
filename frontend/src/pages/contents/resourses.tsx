@@ -1,5 +1,4 @@
-// import React, { useEffect, useState } from 'react';
-import { Database, Cloud, Server, FileCode2, LucideIcon, Blocks } from 'lucide-react';
+import { Database, Cloud, Server, FileCode2, LucideIcon, Blocks } from "lucide-react";
 
 type Tool = {
   name: string;
@@ -11,12 +10,22 @@ type Resource = {
   icon: LucideIcon;
   color: string;
   tools?: Tool[];
-  favColor?: (color: string) => string;
+  favColor(): string;
 };
 
-function favColor(color: string) {
-  return color;
+/* function favColor(this: Resource): string {
+  return this.color;
 }
+ */
+
+/* class createResource {
+  constructor(category: string | string[], icon: LucideIcon, color: string, tools?: Tool[]) {
+    this.category = category;
+    this.icon = icon;
+    this.color = color;
+    this.tools = tools;
+  }
+} */
 
 // factory function
 function createResource(category: string | string[], icon: LucideIcon, color: string, tools?: Tool[]): Resource {
@@ -25,7 +34,7 @@ function createResource(category: string | string[], icon: LucideIcon, color: st
     tools,
     icon,
     color,
-    favColor,
+    favColor: () => color
   };
 }
 
@@ -38,15 +47,13 @@ const resources = [
     [
       {
         name: "Supabase",
-        description:
-          "PostgreSQL database with real-time capabilities",
+        description: "PostgreSQL database with real-time capabilities",
       },
       {
         name: "PostgreSQL",
-        description:
-          "Real-time database with ACID compliance",
+        description: "Real-time database with ACID compliance",
       },
-    ],
+    ]
   ),
   createResource(
     ["Hosting"],
@@ -55,8 +62,7 @@ const resources = [
     [
       {
         name: "Netlify",
-        description:
-          "Modern hosting platform with CI/CD",
+        description: "Modern hosting platform with CI/CD",
       },
     ]
   ),
@@ -67,13 +73,11 @@ const resources = [
     [
       {
         name: "Contentful",
-        description:
-          "Headless content management system",
+        description: "Headless content management system",
       },
       {
         name: "Cloudinary",
-        description:
-          "Headless content management system",
+        description: "Headless content management system",
       },
     ]
   ),
@@ -84,8 +88,7 @@ const resources = [
     [
       {
         name: "Node.js",
-        description:
-          "JavaScript runtime environment",
+        description: "JavaScript runtime environment",
       },
     ]
   ),
@@ -96,21 +99,20 @@ const resources = [
     [
       {
         name: "React",
-        description:
-          "JavaScript library for building user interfaces",
+        description: "JavaScript library for building user interfaces",
       },
     ]
   ),
 ];
 
 function ResourceCard({ resource }: { resource: Resource }) {
-  const { category, tools, icon: Icon, color, favColor } = resource;
+  const { category, tools, icon: Icon, favColor } = resource;
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       <div className="flex items-start space-x-4">
-        <div className={`p-3 rounded-lg bg-gray-50 dark:bg-gray-700 ${color} bg-opacity-10 dark:bg-opacity-20`}>
-          <Icon className={`w-6 h-6 ${color}`} />
+        <div className={`p-3 rounded-lg bg-gray-50 dark:bg-gray-700 ${favColor()} bg-opacity-10 dark:bg-opacity-20`}>
+          <Icon className={`w-6 h-6 ${favColor()}`} />
         </div>
         <div className="flex-1">
           {Array.isArray(category) ? (
@@ -135,7 +137,8 @@ function ResourceCard({ resource }: { resource: Resource }) {
           )}
         </div>
       </div>
-      <div className={`mt-4 font-semibold ${favColor?.(color)}`}>{favColor?.(color)}</div>    </div>
+      <div className={`mt-4 font-semibold ${favColor()}`}>{favColor()}</div>
+    </div>
   );
 }
 
@@ -145,7 +148,9 @@ function ResourcesInfo() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Resources Used</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">These are the Essential tools and services used for creating Projects</p>
+          <p className="text-lg text-gray-600 dark:text-gray-300">
+            These are the essential tools and services used for creating projects.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -159,14 +164,3 @@ function ResourcesInfo() {
 }
 
 export default ResourcesInfo;
-
-
-
-
-/* function user(name, age) {
- return {name, age};
-}
-
-function user(name, age) {
- return user;
-} */

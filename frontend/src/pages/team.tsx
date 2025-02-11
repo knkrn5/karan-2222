@@ -13,41 +13,52 @@ type TeamMember = {
   social: socialLinks;
 };
 
-function createTeamMember(name: string, role: string, image: string, social: socialLinks): TeamMember {
+// in factory function name have to be same
+/* function createTeamMember(name: string, role: string, image: string, social: socialLinks): TeamMember {
   return { name, role, image, social };
-}
+} */
 
-/* const teamMembers = [
+
+  /* const teamMembers = [
   { name: 'John Doe', role: 'CEO & Founder', image: 'https://via.placeholder.com/150', social: '#' },
   { name: 'Jane Smith', role: 'CTO', image: 'https://via.placeholder.com/150', social: '#' },
   { name: 'Alice Johnson', role: 'Lead Designer', image: 'https://via.placeholder.com/150', social: '#' },
   { name: 'Bob Williams', role: 'Marketing Head', image: 'https://via.placeholder.com/150', social: '#' }
 ]; */
 
-/* const teamMembers = [
-  [ 'John Doe', 'CEO & Founder', 'https://via.placeholder.com/150', '#' ],
-  [ 'Jane Smith', 'CTO', 'https://via.placeholder.com/150', '#' ],
-  [ 'Alice Johnson', 'Lead Designer', 'https://via.placeholder.com/150', '#' ],
-  [ 'Bob Williams', 'Marketing Head', 'https://via.placeholder.com/150', '#' ]
-] */
+class createTeamMember {
+  name: string;
+  role: string;
+  image: string;
+  social: socialLinks;
+
+  constructor(name: string, role: string, image: string, social: socialLinks) {
+    this.name = name;
+    this.role = role;
+    this.image = image;
+    this.social = social;
+  }
+}
+
+
 
 const teamMembers = [
-  createTeamMember('John Doe', 'CEO & Founder', 'https://via.placeholder.com/150', {
+  new createTeamMember('John Doe', 'CEO & Founder', 'https://via.placeholder.com/150', {
     twitter: '/twitter',
     instagram: '/insta',
     youtube: '/yt',
   }),
-  createTeamMember('Jane Smith', 'CTO', 'https://via.placeholder.com/150', {
+ new  createTeamMember('Jane Smith', 'CTO', 'https://via.placeholder.com/150', {
     twitter: '/jane-twitter',
     instagram: '/jane-insta',
     youtube: '/jane-yt',
   }),
-  createTeamMember('Alice Johnson', 'Lead Designer', 'https://via.placeholder.com/150', {
+  new createTeamMember('Alice Johnson', 'Lead Designer', 'https://via.placeholder.com/150', {
     twitter: '/alice-twitter',
     instagram: '/alice-insta',
     youtube: '/alice-yt',
   }),
-  createTeamMember('Bob Williams', 'Marketing Head', 'https://via.placeholder.com/150', {
+  new createTeamMember('Bob Williams', 'Marketing Head', 'https://via.placeholder.com/150', {
     twitter: '/bob-twitter',
     instagram: '/bob-insta',
     youtube: '/bob-yt',
@@ -84,21 +95,6 @@ const TeamPage = () => {
                       </a>
                     </div>
                   ))}
-
-                {/*  {member.social.instagram && (
-                  <a href={member.social.instagram} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600">
-                    <svg className="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                      <path d="M24 4.557a9.931 9.931 0 0 1-2.828.775A4.93 4.93 0 0 0 23.337 3a9.865 9.865 0 0 1-3.127 1.195A4.918 4.918 0 0 0 16.616 2a4.92 4.92 0 0 0-4.92 4.92c0 .385.044.76.127 1.122A13.978 13.978 0 0 1 1.64 3.16a4.918 4.918 0 0 0-.665 2.475c0 1.71.87 3.22 2.188 4.103a4.903 4.903 0 0 1-2.23-.616v.062a4.923 4.923 0 0 0 3.946 4.828 4.927 4.927 0 0 1-2.224.084 4.928 4.928 0 0 0 4.604 3.417A9.868 9.868 0 0 1 0 21.54a13.945 13.945 0 0 0 7.548 2.213c9.058 0 14.01-7.496 14.01-13.986 0-.213-.004-.426-.015-.637A9.936 9.936 0 0 0 24 4.557z" />
-                    </svg>
-                  </a>
-                )}
-                {member.social.youtube && (
-                  <a href={member.social.youtube} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600">
-                    <svg className="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                      <path d="M24 4.557a9.931 9.931 0 0 1-2.828.775A4.93 4.93 0 0 0 23.337 3a9.865 9.865 0 0 1-3.127 1.195A4.918 4.918 0 0 0 16.616 2a4.92 4.92 0 0 0-4.92 4.92c0 .385.044.76.127 1.122A13.978 13.978 0 0 1 1.64 3.16a4.918 4.918 0 0 0-.665 2.475c0 1.71.87 3.22 2.188 4.103a4.903 4.903 0 0 1-2.23-.616v.062a4.923 4.923 0 0 0 3.946 4.828 4.927 4.927 0 0 1-2.224.084 4.928 4.928 0 0 0 4.604 3.417A9.868 9.868 0 0 1 0 21.54a13.945 13.945 0 0 0 7.548 2.213c9.058 0 14.01-7.496 14.01-13.986 0-.213-.004-.426-.015-.637A9.936 9.936 0 0 0 24 4.557z" />
-                    </svg>
-                  </a>
-                )} */}
               </div>
             </div>
           ))}
