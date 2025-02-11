@@ -11,8 +11,12 @@ type Resource = {
   icon: LucideIcon;
   color: string;
   tools?: Tool[];
+  favColor?: (color: string) => string;
 };
 
+function favColor(color: string) {
+  return color;
+}
 
 // factory function
 function createResource(category: string | string[], icon: LucideIcon, color: string, tools?: Tool[]): Resource {
@@ -21,6 +25,7 @@ function createResource(category: string | string[], icon: LucideIcon, color: st
     tools,
     icon,
     color,
+    favColor,
   };
 }
 
@@ -41,7 +46,7 @@ const resources = [
         description:
           "Real-time database with ACID compliance",
       },
-    ]
+    ],
   ),
   createResource(
     ["Hosting"],
@@ -99,7 +104,7 @@ const resources = [
 ];
 
 function ResourceCard({ resource }: { resource: Resource }) {
-  const { category, tools, icon: Icon, color } = resource;
+  const { category, tools, icon: Icon, color, favColor } = resource;
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
@@ -130,7 +135,7 @@ function ResourceCard({ resource }: { resource: Resource }) {
           )}
         </div>
       </div>
-    </div>
+      <div className={`mt-4 font-semibold ${favColor?.(color)}`}>{favColor?.(color)}</div>    </div>
   );
 }
 
@@ -154,3 +159,14 @@ function ResourcesInfo() {
 }
 
 export default ResourcesInfo;
+
+
+
+
+/* function user(name, age) {
+ return {name, age};
+}
+
+function user(name, age) {
+ return user;
+} */
