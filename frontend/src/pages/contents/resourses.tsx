@@ -19,12 +19,16 @@ class createResource {
   color: string;
   tools?: Tool[];
 
-  constructor(category: string | string[], icon: LucideIcon, color: string, tools?: Tool[]) {
+  constructor(
+    category: string | string[],
+    icon: LucideIcon,
+    color: string,
+    tools?: Tool[]
+  ) {
     this.category = category;
     this.icon = icon;
     this.color = color;
     this.tools = tools;
-    
   }
 }
 
