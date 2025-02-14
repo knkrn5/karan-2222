@@ -12,21 +12,36 @@ type Tool = {
     icon: LucideIcon;
     color: string;
   };
-/*   interface IResource {
+
+
+  class CreateResource implements Resource {
     category: string | string[];
     icon: LucideIcon;
     color: string;
     tools?: Tool[];
-  } */
   
-  class CreateResource implements Resource {
+    constructor(
+      category: string | string[],
+      icon: LucideIcon,
+      color: string,
+      tools?: Tool[]
+    ) {
+      this.category = category;
+      this.icon = icon;
+      this.color = color;
+      this.tools = tools;
+    }
+  }
+  
+  
+/*   class CreateResource implements Resource {
     constructor(
       public category: string | string[],
       public icon: LucideIcon,
       public color: string,
       public tools?: Tool[]
     ) {}
-  }
+  } */
 
 
 // prettier-ignore
