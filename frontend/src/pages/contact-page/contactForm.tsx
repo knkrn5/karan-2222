@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Send } from 'lucide-react';
 
 interface FormData {
@@ -8,18 +8,31 @@ interface FormData {
 }
 
 export default function ContactForm() {
-    const [formData, setFormData] = useState<FormData>({
-        name: '',
-        email: '',
-        message: '',
-      });
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    message: '',
+  });
 
+  const [arr, setarr] = useState<FormData[]>([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handling form submission here
-    console.log('Form submitted:', formData);
+    setarr((prevArr) => [...prevArr, formData]);
+    setFormData({
+      name: '',
+      email: '',
+      message: '',
+    });
+
+    // console.log('Form submitted:', formData);
   };
+
+  useEffect(() => {
+    console.log(arr);
+  }, [arr]);
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
