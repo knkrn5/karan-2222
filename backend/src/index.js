@@ -2,8 +2,9 @@ import mongoose from "mongoose";
 import express from "express";
 import dotenv from "dotenv";
 
-dotenv.config({ path: "./backend/.env" });
-console.log("MongoDB URL:", process.env.MONGO_URL);
+// dotenv.config({ path: "./backend/.env" });
+dotenv.config();
+// console.log("MongoDB URL:", process.env.MONGO_URL);
 
 import connectDB from "../db/index.js";
 
@@ -28,6 +29,10 @@ connectDB()
 .catch((error) => {
   console.log("mongodb connection error",error);
 });
+
+app.get("/test", (req, res) => {
+  res.send("test route")
+})
 
 app.get('/api/github', (req, res) => {
   res.json({
@@ -70,7 +75,7 @@ app.get('/api/github', (req, res) => {
 });
 
 
-app.use("/api/contact", contactRoutes);
+
 
 
 
