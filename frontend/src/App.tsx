@@ -8,7 +8,7 @@ import ErrorPage from "./pages/errors/errorPage";
 
 import { ThemeProvider } from "./contexts/themeProvider";
 import AboutMe from "./pages/contents/about";
-import ContactMe from "./pages/contents/contact";
+import ContactMe from "./pages/contact-page/contact";
 import ResourcesInfo from "./pages/contents/resourceCard";
 
 import Test from "./pages/test";
