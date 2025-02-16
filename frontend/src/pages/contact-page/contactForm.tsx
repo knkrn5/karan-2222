@@ -15,30 +15,37 @@ export default function ContactForm() {
     message: '',
   });
 
-  const [contactInfo, setContactInfo] = useState<FormData[]>([]);
+  //   const [contactInfo, setContactInfo] = useState<FormData[]>([]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Handling form submission here
-    setContactInfo((prevContactInfo) => [...prevContactInfo, formData]);
+
+    // setContactInfo((prevContactInfo) => [...prevContactInfo, formData]);
+    try {
+      const contactData = await axios.post('/api/contact', formData);
+      console.log('Message sent successfully', contactData.data.message);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error('Error:', error.response?.data || error.message);
+      } else {
+        console.error('Unexpected Error:', error);
+      }
+      throw error;
+    }
+
     setFormData({
       name: '',
       email: '',
       message: '',
     });
 
-    // console.log('Form submitted:', formData);
+    console.log('Form submitted:', formData);
   };
 
-  useEffect(() => {
-    axios.post('/api/contact', {contactInfo})
-    .then((res) => {
-        console.log(res); 
-    })
-    .catch((error) => {
-        console.error("Error:", error.response?.data || error.message);
-    });
-  }, [contactInfo]);
+  /*   useEffect(() => {
+    console.log(contactInfo)
+  }, []); */
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
