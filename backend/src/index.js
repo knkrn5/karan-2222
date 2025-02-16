@@ -70,5 +70,8 @@ app.get('/api/github', (req, res) => {
 });
 
 
+app.use("/api/contact", contactRoutes);
+
+
 
 

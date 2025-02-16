@@ -14,8 +14,8 @@ const blogSchema = new Schema({
     Message: {
         type: String,
         required: true
-    },
-})
+    }
+}, { timestamps: true })
 
 
 export const Contact = mongoose.model("Contact", blogSchema);

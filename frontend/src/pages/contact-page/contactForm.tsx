@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Send } from 'lucide-react';
+import axios from 'axios';
 
 interface FormData {
   name: string;
@@ -14,12 +15,12 @@ export default function ContactForm() {
     message: '',
   });
 
-  const [arr, setarr] = useState<FormData[]>([]);
+  const [contactInfo, setContactInfo] = useState<FormData[]>([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handling form submission here
-    setarr((prevArr) => [...prevArr, formData]);
+    setContactInfo((prevContactInfo) => [...prevContactInfo, formData]);
     setFormData({
       name: '',
       email: '',
@@ -30,9 +31,14 @@ export default function ContactForm() {
   };
 
   useEffect(() => {
-    console.log(arr);
-  }, [arr]);
-
+    axios.post('/api/contact', {contactInfo})
+    .then((res) => {
+        console.log(res); 
+    })
+    .catch((error) => {
+        console.error("Error:", error.response?.data || error.message);
+    });
+  }, [contactInfo]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
