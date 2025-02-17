@@ -17,9 +17,11 @@ export default function ContactForm() {
 
   //   const [contactInfo, setContactInfo] = useState<FormData[]>([]);
 
+  // Handling form submission here
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handling form submission here
+
+    if (!formData.name || !formData.email || !formData.message) return;
 
     // setContactInfo((prevContactInfo) => [...prevContactInfo, formData]);
     try {
