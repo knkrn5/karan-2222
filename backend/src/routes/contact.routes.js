@@ -1,9 +1,7 @@
-import express, { application } from "express";
+import express from "express";
 import { contactInfo } from "../controllers/contact.controller.js";
-
-
 const router = express.Router();
 
-router.route("/contact").post(contactInfo)
+router.route("/message").post(contactInfo);
 
-export default router ;
+export default router;

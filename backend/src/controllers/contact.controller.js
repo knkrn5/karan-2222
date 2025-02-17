@@ -3,12 +3,15 @@
 
 const contactInfo = async (req, res) => {
     try {
-        const contact = await contactModel.create(req.body);
-        return res.status(200).json({
+        const { name, email, message } = req.body;
+        console.log(name);
+        
+        // Sending a success response
+        return res.status(200).json({   
             success: true,
-            message: "contact info sent successfully",
-            contact
+            message: "Contact information received successfully"
         });
+
     } catch (error) {
         return res.status(500).json({   
             success: false,
@@ -17,4 +20,4 @@ const contactInfo = async (req, res) => {
     }
 }
 
-export {contactInfo}
+export { contactInfo };

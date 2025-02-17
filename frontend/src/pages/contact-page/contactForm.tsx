@@ -21,7 +21,10 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.email || !formData.message) return;
+    if (!formData.name || !formData.email || !formData.message) {
+      console.log('All fields are required');
+      return;
+    }
 
     // setContactInfo((prevContactInfo) => [...prevContactInfo, formData]);
     try {
