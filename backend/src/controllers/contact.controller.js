@@ -4,7 +4,7 @@
 const contactInfo = async (req, res) => {
     try {
         const { name, email, message } = req.body;
-        console.log(name);
+        console.log(name, email, message);
         
         // Sending a success response
         return res.status(200).json({   

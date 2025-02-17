@@ -28,7 +28,7 @@ export default function ContactForm() {
 
     // setContactInfo((prevContactInfo) => [...prevContactInfo, formData]);
     try {
-      const contactData = await axios.post('/api/contact', formData);
+      const contactData = await axios.post('/api/contacts/message', formData);
       console.log('Message sent successfully', contactData.data.message);
     } catch (error) {
       if (axios.isAxiosError(error)) {

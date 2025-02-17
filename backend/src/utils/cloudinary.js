@@ -35,7 +35,7 @@ const uploadOnCloudinary = async (localFilePath) => {
 };
 
 
-export default uploadOnCloudinary;
+export  {uploadOnCloudinary};
 
 
 /*  // Optimize delivery by resizing and applying auto-format and auto-quality
