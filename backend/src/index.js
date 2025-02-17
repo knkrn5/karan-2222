@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import express from "express";
 import dotenv from "dotenv";
+import {app} from "./app.js";
 
 // dotenv.config({ path: "./backend/.env" });
 dotenv.config();
@@ -8,17 +9,7 @@ dotenv.config();
 
 import connectDB from "../db/index.js";
 
-const app = express();
 
-
-/* ;(async () =>{
-  try {
-    await connectDB()
-  } catch (error) {
-    console.log(error)
-    throw error
-  }
-})() */
 
 connectDB()
 .then(() => {

@@ -27,3 +27,4 @@ import userRoutes from "./routes/user.routes.js";
 app.use("/api/user", userRoutes);
 
 
+export {app};
