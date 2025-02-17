@@ -64,7 +64,7 @@ export default function ContactForm() {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Name
+            Name<span className="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -75,11 +75,12 @@ export default function ContactForm() {
             className="mt-1 p-3 bg-white block w-full outline-none rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
             placeholder="Name"
           />
+          <p className="text-red-600 text-sm">Name is required</p>
         </div>
 
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Email
+            Email<sup className="text-red-500 text-[12px]">*</sup>
           </label>
           <input
             type="email"
@@ -90,11 +91,12 @@ export default function ContactForm() {
             className="mt-1 p-3 bg-white block w-full outline-none rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
             placeholder="Email"
           />
+          <p className="text-red-600 text-sm">Email is required</p>
         </div>
 
         <div>
           <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Message
+            Message<span className="text-red-500">*</span>
           </label>
           <textarea
             name="message"
