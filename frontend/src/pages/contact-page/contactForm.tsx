@@ -21,12 +21,14 @@ export default function ContactForm() {
     message: '',
   });
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   // Handling form submission here
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     handleErrors();
 
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.name || !emailRegex.test(formData.email) || !formData.message) {
       console.log('All fields are required');
       return;
     }
@@ -62,23 +64,21 @@ export default function ContactForm() {
       ...formData,
       [name]: value,
     });
+
+    console.log(name);
+
+    if (error[name as keyof FormData]) {
+      setError((prev) => ({ ...prev, [name]: '' }));
+    }
   };
 
   const handleErrors = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
-  
     setError({
       name: !formData.name ? 'Name is required' : '',
-      email: !formData.email
-        ? 'Email is required'
-        : !emailRegex.test(formData.email)
-        ? 'Please Enter a Valid Email'
-        : '',
+      email: !formData.email ? 'Email is required' : !emailRegex.test(formData.email) ? 'Please Enter a Valid Email' : '',
       message: !formData.message ? 'Message is required' : '',
     });
   };
-  
-  
 
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-8 rounded-2xl  shadow-lg duration-300 hover:drop-shadow-2xl">
