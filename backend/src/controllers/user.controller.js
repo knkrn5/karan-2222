@@ -6,7 +6,7 @@ import { ApiResponse } from "../utils/apiResponse.js";
 
 const registerUser = asyncHandler(async (req, res) => {
     const { fullName, email, username, password } = req.body
-    console.log(email, username, password);
+    console.log(fullName, email, username, password);
 
     if (
         [fullName, email, username, password].some((field) =>
@@ -16,7 +16,7 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 
 
-    const existedUser = User.findOne({
+    const existedUser = await User.findOne({
         $or: [{ username }, { email }]
     })
 
@@ -56,6 +56,7 @@ const registerUser = asyncHandler(async (req, res) => {
      return res.status(201).json(
         new ApiResponse(200, createdUser, "User registered Successfully")
      )
+
 
 });
 
