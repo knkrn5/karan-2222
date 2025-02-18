@@ -21,63 +21,59 @@ export default function ContactForm() {
     message: '',
   });
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // robust email regex
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-  // Handling form submission here
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    handleErrors();
 
-    if (!formData.name || !emailRegex.test(formData.email) || !formData.message) {
-      console.log('All fields are required');
+    // Calculate errors synchronously
+    const newErrors = {
+      name: !formData.name ? 'Name is required' : '',
+      email: !formData.email ? 'Email is required' : !emailRegex.test(formData.email) ? 'Please enter a valid email' : '',
+      message: !formData.message ? 'Message is required' : '',
+    };
+
+    setError(newErrors);
+
+    // Check if any errors exist
+    const hasErrors = Object.values(newErrors).some((error) => error !== '');
+    if (hasErrors) {
+      console.log('Form has errors. not submitting hte form');
       return;
     }
 
     try {
       const contactData = await axios.post('/api/contacts/message', formData);
       console.log('Message sent successfully', contactData.data.message);
+
+      // Reset form after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        message: '',
+      });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error('Error:', error.response?.data || error.message);
       } else {
         console.error('Unexpected Error:', error);
       }
-      throw error;
     }
-
-    setFormData({
-      name: '',
-      email: '',
-      message: '',
-    });
-
-    console.log('Form submitted:', formData);
   };
-
-  /*   useEffect(() => {
-    console.log(contactInfo)
-  }, []); */
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
 
-    console.log(name);
-
+    // Clear error when user starts typing
     if (error[name as keyof FormData]) {
       setError((prev) => ({ ...prev, [name]: '' }));
     }
-  };
 
-  const handleErrors = () => {
-    setError({
-      name: !formData.name ? 'Name is required' : '',
-      email: !formData.email ? 'Email is required' : !emailRegex.test(formData.email) ? 'Please Enter a Valid Email' : '',
-      message: !formData.message ? 'Message is required' : '',
-    });
   };
 
   return (
