@@ -15,18 +15,22 @@ export default function ContactForm() {
     message: '',
   });
 
-  //   const [contactInfo, setContactInfo] = useState<FormData[]>([]);
+  const [error, setError] = useState<FormData>({
+    name: '',
+    email: '',
+    message: '',
+  });
 
   // Handling form submission here
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    handleErrors();
 
     if (!formData.name || !formData.email || !formData.message) {
       console.log('All fields are required');
       return;
     }
 
-    // setContactInfo((prevContactInfo) => [...prevContactInfo, formData]);
     try {
       const contactData = await axios.post('/api/contacts/message', formData);
       console.log('Message sent successfully', contactData.data.message);
@@ -53,11 +57,28 @@ export default function ContactForm() {
   }, []); */
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
+
+  const handleErrors = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+  
+    setError({
+      name: !formData.name ? 'Name is required' : '',
+      email: !formData.email
+        ? 'Email is required'
+        : !emailRegex.test(formData.email)
+        ? 'Please Enter a Valid Email'
+        : '',
+      message: !formData.message ? 'Message is required' : '',
+    });
+  };
+  
+  
 
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-8 rounded-2xl  shadow-lg duration-300 hover:drop-shadow-2xl">
@@ -70,12 +91,13 @@ export default function ContactForm() {
             type="text"
             name="name"
             id="name"
+            maxLength={30}
             value={formData.name}
             onChange={handleChange}
             className="mt-1 p-3 bg-white block w-full outline-none rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
             placeholder="Name"
           />
-          <p className="text-red-600 text-sm">Name is required</p>
+          {error.name && <p className="text-red-600 text-sm">{error.name}</p>}
         </div>
 
         <div>
@@ -83,15 +105,16 @@ export default function ContactForm() {
             Email<sup className="text-red-500 text-[12px]">*</sup>
           </label>
           <input
-            type="email"
+            type="text"
             name="email"
             id="email"
+            maxLength={50}
             value={formData.email}
             onChange={handleChange}
             className="mt-1 p-3 bg-white block w-full outline-none rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
             placeholder="Email"
           />
-          <p className="text-red-600 text-sm">Email is required</p>
+          {error.email && <p className="text-red-600 text-sm">{error.email}</p>}
         </div>
 
         <div>
@@ -102,11 +125,17 @@ export default function ContactForm() {
             name="message"
             id="message"
             rows={4}
+            minLength={10}
+            maxLength={200}
             value={formData.message}
             onChange={handleChange}
             className="mt-1 p-3 bg-white block w-full outline-none rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
             placeholder="Message Me..."
           />
+          <div className="flex justify-between">
+            {error.message && <p className="text-red-600 text-sm">{error.message}</p>}
+            <p className="text-sm text-gray-500 dark:text-gray-400">{formData.message.length}/200 characters</p>
+          </div>
         </div>
 
         <button
