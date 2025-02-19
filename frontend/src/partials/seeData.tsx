@@ -1,16 +1,24 @@
 import StatusNotifications from './StatusNotifications';
 
+interface StatusInfoProps {
+  success?: string;
+  info?: string;
+  warning?: string;
+  error?: string;
+}
+
 interface contactDataProps {
   name: string;
   email: string;
   message: string;
+  status: StatusInfoProps;
 }
 
-const seeData = ({ name, email, message }: contactDataProps) => {
+const seeData = ({ name, email, message, status }: contactDataProps) => {
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-5 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
       <div className="flex justify-end px-4 pt-4"></div>
-      <div className="flex flex-col items-center p-5">
+      <div className="flex flex-col items-center p-4 rounded-2xl shadow-2xl">
         <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{name}</h5>
         <p className="text-sm text-gray-500 dark:text-gray-400">{email}</p>
         <p className="w-3/4 text-sm p-4 m-2 break-all bg-white rounded-2xl  dark:bg-gray-700 dark:text-white">{message}</p>
@@ -29,7 +37,7 @@ const seeData = ({ name, email, message }: contactDataProps) => {
           </a>
         </div>
       </div>
-      <StatusNotifications />
+      <StatusNotifications statusInfo={status}/>
     </div>
   );
 };

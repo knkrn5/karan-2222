@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import { Send, CircleCheck } from 'lucide-react';
 import axios from 'axios';
+
 import SeeData from '../../partials/seeData';
 
 interface FormData {
   name: string;
   email: string;
   message: string;
+}
+
+interface StatusInfoProps {
+  success?: string;
+  info?: string;
+  warning?: string;
+  error?: string;
 }
 
 export default function ContactForm() {
@@ -23,7 +31,8 @@ export default function ContactForm() {
   });
 
   const [isSubmitted, setIsSubmitted] = useState<string>("");
-  const [serverMsg, setServerMsg] = useState<string>("Send Message");
+  const [serverMsg, setServerMsg] = useState<FormData>({ name: '', email: '', message: '' });
+  const [statusInfo, setStatusInfo] = useState<StatusInfoProps>({});
 
   // robust email regex
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -48,25 +57,27 @@ export default function ContactForm() {
     }
 
     try {
-      const contactData = await axios.post('/api/contact/message', formData);
+      const response = await axios.post('/api/contact/message', formData);
+      const { data } = response;
 
-      setIsSubmitted(contactData.data.success);
-      setServerMsg(contactData.data.data);
-      console.log(serverMsg)
+      setIsSubmitted(data.success);
+      // Reset form
+      setFormData({ name: '', email: '', message: '' });
+      setServerMsg({ name: data.data.Name, email: data.data.Email, message: data.data.Message });
+      setStatusInfo({ success: data.status });
+      console.log(data.status);
+      console.log(data.data);
 
 
-      // Reset form after successful submission
-      setFormData({
-        name: '',
-        email: '',
-        message: '',
-      });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error('Error:', error.response?.data || error.message);
       } else {
         console.error('Unexpected Error:', error);
       }
+    } finally{
+      console.log(statusInfo);
+      console.log(serverMsg);
     }
   };
 
@@ -86,7 +97,7 @@ export default function ContactForm() {
   return (
     <>
       {isSubmitted ? (
-        <SeeData name={serverMsg.Name} email={serverMsg.Email} message={serverMsg.Message} />
+        <SeeData name={serverMsg.name} email={serverMsg.email} message={serverMsg.message} status={statusInfo} />
       ) : (
         <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-8 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-6">

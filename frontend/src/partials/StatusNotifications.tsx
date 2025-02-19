@@ -1,27 +1,46 @@
-import { CircleCheck, Info, OctagonAlert, CircleX  } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { CircleCheck, Info, OctagonAlert, CircleX } from 'lucide-react';
 
-export default function StatusNotifications() {
+interface StatusProp {
+  success?: string;
+  info?: string;
+  warning?: string;
+  error?: string;
+}
+
+export default function StatusNotifications({ statusInfo }: { statusInfo: StatusProp }) {
+  const [status, setStatus] = useState<StatusProp>({});
+
+  useEffect(() => {
+    setStatus(statusInfo); 
+  }, [statusInfo]);
+
   return (
-    <>
-      <div className="space-y-4">
-        <div className="flex items-center bg-green-600 text-white text-lg font-semibold px-4 py-2 rounded-lg">
+    <div className="space-y-4 p-4">
+      {status.success && (
+        <div className="flex items-center w-fit mx-auto bg-green-600 text-white px-4 py-2 rounded-lg">
           <CircleCheck className="mr-2" />
-          <span>Success - Everything went smoothly!</span>
+          <span>{status.success}</span>
         </div>
-
-        <div className="flex items-center bg-blue-600 text-white text-lg font-semibold px-4 py-2 rounded-lg">
+      )}
+      {status.info && (
+        <div className="flex items-center w-fit mx-auto bg-blue-600 text-white px-4 py-2 rounded-lg">
           <Info className="mr-2" />
-          <span>Info - This is some information for you.</span>
+          <span>{status.info}</span>
         </div>
-        <div className="flex items-center bg-yellow-600 text-white text-lg font-semibold px-4 py-2 rounded-lg">
+      )}
+      {status.warning && (
+        <div className="flex items-center w-fit mx-auto bg-yellow-600 text-white px-4 py-2 rounded-lg">
           <OctagonAlert className="mr-2" />
-          <span>Warning - Be careful with this next step.</span>
+          <span>{status.warning}</span>
         </div>
-        <div className="flex items-center bg-red-600 text-white text-lg font-semibold px-4 py-2 rounded-lg">
+      )}
+      {status.error && (
+        <div className="flex items-center w-fit mx-auto bg-red-600 text-white px-4 py-2 rounded-lg">
           <CircleX className="mr-2" />
-          <span>Error - Something went wrong.</span>
+          <span>{status.error}</span>
         </div>
-      </div>
-    </>
+      )}
+    </div>
   );
 }

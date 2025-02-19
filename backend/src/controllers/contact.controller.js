@@ -1,7 +1,6 @@
 import { Contact } from "../models/contact.model.js";
 
 
-
 const contactInfo = async (req, res) => {
     try {
       const { name, email, message } = req.body;
@@ -15,15 +14,15 @@ const contactInfo = async (req, res) => {
   
       return res.status(201).json({
         success: true,
-        message: "Message Sent successfully",
+        status: "Message Sent successfully",
         data: contactMsg
       });
   
     } catch (error) {
       return res.status(500).json({
         success: false,
-        message: error.message,
-        customInfo: "Something went wrong via user controller." 
+        status: "Something went wrong.",
+        message: error.message
       });
     }
   }
