@@ -49,10 +49,10 @@ export default function ContactForm() {
 
     try {
       const contactData = await axios.post('/api/contact/message', formData);
-      console.log('Message sent successfully', contactData.data.message, contactData.data.success);
 
       setIsSubmitted(contactData.data.success);
-      setServerMsg(contactData.data.message);
+      setServerMsg(contactData.data.data);
+      console.log(serverMsg)
 
 
       // Reset form after successful submission
@@ -86,7 +86,7 @@ export default function ContactForm() {
   return (
     <>
       {isSubmitted ? (
-        <SeeData />
+        <SeeData name={serverMsg.Name} email={serverMsg.Email} message={serverMsg.Message} />
       ) : (
         <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-8 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -151,7 +151,7 @@ export default function ContactForm() {
                 isSubmitted ? 'bg-green-600 hover:bg-green-700 focus:ring-green-500' : 'bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500'
               }`}
             >
-              {serverMsg}
+              {isSubmitted ? 'Message Sent' : 'Send Message'}
               {isSubmitted ? (
                 <CircleCheck className="ml-2 -mr-1 h-5 w-5" />
               ) : (
