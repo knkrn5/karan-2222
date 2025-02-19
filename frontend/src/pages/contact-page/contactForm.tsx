@@ -31,6 +31,7 @@ export default function ContactForm() {
   });
 
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [serverMsg, setServerMsg] = useState<FormData>({ name: '', email: '', message: '' });
   const [statusInfo, setStatusInfo] = useState<StatusInfoProps>({});
 
@@ -59,17 +60,18 @@ export default function ContactForm() {
       const response = await axios.post('/api/contact/message', formData);
       const { data } = response;
 
-      // setIsSubmitted(data.success);
+      setIsSuccess(data.success);
       setStatusInfo({ success: data.status });
 
       // Reset form
       setFormData({ name: '', email: '', message: '' });
       setServerMsg({ name: data.data.Name, email: data.data.Email, message: data.data.Message });
-
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error('Error:', error.response?.data /* || error.message */);
-        setStatusInfo({error: error.response?.data.status });
+        console.log( error.response?.data.data );
+        setServerMsg(error.response?.data.data)
+        setIsSuccess(error.response?.data.success);
+        setStatusInfo({ error: error.response?.data.status });
       } else {
         console.error('Unexpected Error:', error);
       }
@@ -94,7 +96,7 @@ export default function ContactForm() {
   return (
     <>
       {isSubmitted ? (
-        <SeeData name={serverMsg.name} email={serverMsg.email} message={serverMsg.message} status={statusInfo} />
+        <SeeData name={serverMsg.name} email={serverMsg.email} message={serverMsg.message} status={statusInfo} isSuccess={isSuccess} />
       ) : (
         <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-8 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-6">

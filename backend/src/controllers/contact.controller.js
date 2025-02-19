@@ -22,7 +22,8 @@ const contactInfo = async (req, res) => {
       return res.status(500).json({
         success: false,
         status: "Something went wrong.",
-        message: error.message
+        message: error.message,
+        data: req.body
       });
     }
   }
