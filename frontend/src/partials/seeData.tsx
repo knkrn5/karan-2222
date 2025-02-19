@@ -1,4 +1,4 @@
-
+import StatusNotifications from './StatusNotifications';
 
 interface contactDataProps {
   name: string;
@@ -7,7 +7,6 @@ interface contactDataProps {
 }
 
 const seeData = ({ name, email, message }: contactDataProps) => {
-
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-5 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
       <div className="flex justify-end px-4 pt-4"></div>
@@ -30,6 +29,7 @@ const seeData = ({ name, email, message }: contactDataProps) => {
           </a>
         </div>
       </div>
+      <StatusNotifications />
     </div>
   );
 };
