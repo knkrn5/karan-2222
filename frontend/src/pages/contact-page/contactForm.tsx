@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Send } from 'lucide-react';
 import axios from 'axios';
 
-import SeeData from './seeContactDetails';
+import SeeData from './seeContactInfo';
 
 interface FormData {
   name: string;
@@ -46,7 +46,6 @@ export default function ContactForm() {
       email: !formData.email ? 'Email is required' : !emailRegex.test(formData.email) ? 'Please enter a valid email' : '',
       message: !formData.message ? 'Message is required' : '',
     };
-
     setError(newErrors);
 
     // Check if any errors exist
@@ -56,14 +55,11 @@ export default function ContactForm() {
       return;
     }
 
-    setIsSubmitted(true);
-
-
     try {
       const response = await axios.post('/api/contact/message', formData);
       const { data } = response;
 
-      setIsSubmitted(data.success);
+      // setIsSubmitted(data.success);
       setStatusInfo({ success: data.status });
 
       // Reset form
@@ -72,14 +68,13 @@ export default function ContactForm() {
 
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error('Error:', error.response?.data || error.message);
-        const {errorInfo} = error.response?.data || error.message;
-        setStatusInfo({ error: errorInfo.status });
+        console.error('Error:', error.response?.data /* || error.message */);
+        setStatusInfo({error: error.response?.data.status });
       } else {
         console.error('Unexpected Error:', error);
       }
     } finally {
-      // console.log(statusInfo);
+      setIsSubmitted(true);
     }
   };
 
