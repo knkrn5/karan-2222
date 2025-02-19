@@ -52,7 +52,6 @@ export default function ContactForm() {
     // Check if any errors exist
     const hasErrors = Object.values(newErrors).some((error) => error !== '');
     if (hasErrors) {
-      console.log('Form has errors. not submitting hte form');
       return;
     }
 
@@ -68,8 +67,8 @@ export default function ContactForm() {
       setServerMsg({ name: data.data.Name, email: data.data.Email, message: data.data.Message });
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.log( error.response?.data.data );
-        setServerMsg(error.response?.data.data)
+        console.log(error.response?.data.data);
+        setServerMsg(error.response?.data.data);
         setIsSuccess(error.response?.data.success);
         setStatusInfo({ error: error.response?.data.status });
       } else {

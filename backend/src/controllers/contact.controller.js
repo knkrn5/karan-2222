@@ -23,7 +23,7 @@ const contactInfo = async (req, res) => {
         success: false,
         status: "Something went wrong.",
         message: error.message,
-        data: req.body
+        data: req.body,
       });
     }
   }
