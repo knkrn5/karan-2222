@@ -1,23 +1,32 @@
-// import {contactModel } from "../models/contact.model.js";
+import { Contact } from "../models/contact.model.js";
+
 
 
 const contactInfo = async (req, res) => {
     try {
-        const { name, email, message } = req.body;
-        console.log(name, email, message);
-        
-        // Sending a success response
-        return res.status(200).json({   
-            success: true,
-            message: "Contact information received successfully"
-        });
-
+      const { name, email, message } = req.body;
+      console.log(name, email, message);
+      
+      const contactMsg = await Contact.create({ 
+        Name: name, 
+        Email: email, 
+        Message: message 
+      });
+  
+      return res.status(201).json({
+        success: true,
+        message: "Message Sent successfully",
+        data: contactMsg
+      });
+  
     } catch (error) {
-        return res.status(500).json({   
-            success: false,
-            message: error.message
-        });
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+        customInfo: "Something went wrong via user controller." 
+      });
     }
-}
+  }
+  
 
 export { contactInfo };

@@ -27,7 +27,7 @@ import contactRoutes from "./routes/contact.routes.js";
 
 //routes
 app.use("/api/user", userRoutes);
-app.use("/api/contacts", contactRoutes);
+app.use("/api/contact", contactRoutes);
 
 
 
