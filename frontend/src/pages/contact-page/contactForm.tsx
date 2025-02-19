@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Send } from 'lucide-react';
 import axios from 'axios';
 
-import SeeData from '../../partials/seeData';
+import SeeData from './seeContactDetails';
 
 interface FormData {
   name: string;
@@ -56,12 +56,15 @@ export default function ContactForm() {
       return;
     }
 
+    setIsSubmitted(true);
+
+
     try {
       const response = await axios.post('/api/contact/message', formData);
       const { data } = response;
 
       setIsSubmitted(data.success);
-      setStatusInfo(data.success ? { success: data.status } : { error: data.status });
+      setStatusInfo({ success: data.status });
 
       // Reset form
       setFormData({ name: '', email: '', message: '' });
@@ -70,11 +73,13 @@ export default function ContactForm() {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error('Error:', error.response?.data || error.message);
+        const {errorInfo} = error.response?.data || error.message;
+        setStatusInfo({ error: errorInfo.status });
       } else {
         console.error('Unexpected Error:', error);
       }
     } finally {
-      console.log(serverMsg);
+      // console.log(statusInfo);
     }
   };
 
@@ -157,7 +162,7 @@ export default function ContactForm() {
               type="submit"
               className="inline-flex items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white transition-colors bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500"
             >
-              Send Message
+              {!isSubmitted ? 'Send Message' : 'Submit'}
               <Send className="ml-2 -mr-1 h-5 w-5" />
             </button>
           </form>
