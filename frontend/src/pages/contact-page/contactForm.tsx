@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, CircleCheck } from 'lucide-react';
+import { Send } from 'lucide-react';
 import axios from 'axios';
 
 import SeeData from '../../partials/seeData';
@@ -30,7 +30,7 @@ export default function ContactForm() {
     message: '',
   });
 
-  const [isSubmitted, setIsSubmitted] = useState<string>("");
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [serverMsg, setServerMsg] = useState<FormData>({ name: '', email: '', message: '' });
   const [statusInfo, setStatusInfo] = useState<StatusInfoProps>({});
 
@@ -61,13 +61,11 @@ export default function ContactForm() {
       const { data } = response;
 
       setIsSubmitted(data.success);
+      setStatusInfo(data.success ? { success: data.status } : { error: data.status });
+
       // Reset form
       setFormData({ name: '', email: '', message: '' });
       setServerMsg({ name: data.data.Name, email: data.data.Email, message: data.data.Message });
-      setStatusInfo({ success: data.status });
-      console.log(data.status);
-      console.log(data.data);
-
 
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -75,8 +73,7 @@ export default function ContactForm() {
       } else {
         console.error('Unexpected Error:', error);
       }
-    } finally{
-      console.log(statusInfo);
+    } finally {
       console.log(serverMsg);
     }
   };
@@ -117,7 +114,7 @@ export default function ContactForm() {
               />
               {error.name && <p className="text-red-600 text-sm">{error.name}</p>}
             </div>
-  
+
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Email<sup className="text-red-500 text-[12px]">*</sup>
@@ -134,7 +131,7 @@ export default function ContactForm() {
               />
               {error.email && <p className="text-red-600 text-sm">{error.email}</p>}
             </div>
-  
+
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Message<span className="text-red-500">*</span>
@@ -155,19 +152,13 @@ export default function ContactForm() {
                 <p className="text-sm text-gray-500 dark:text-gray-400">{formData.message.length}/200 characters</p>
               </div>
             </div>
-  
+
             <button
               type="submit"
-              className={`inline-flex items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white transition-colors ${
-                isSubmitted ? 'bg-green-600 hover:bg-green-700 focus:ring-green-500' : 'bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500'
-              }`}
+              className="inline-flex items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white transition-colors bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500"
             >
-              {isSubmitted ? 'Message Sent' : 'Send Message'}
-              {isSubmitted ? (
-                <CircleCheck className="ml-2 -mr-1 h-5 w-5" />
-              ) : (
-                <Send className="ml-2 -mr-1 h-5 w-5" />
-              )}
+              Send Message
+              <Send className="ml-2 -mr-1 h-5 w-5" />
             </button>
           </form>
         </div>
