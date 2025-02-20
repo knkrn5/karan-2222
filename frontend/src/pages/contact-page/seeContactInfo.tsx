@@ -15,14 +15,15 @@ interface contactDataProps {
   message: string;
   id: string;
   statusInfo: StatusInfoProps;
-  isSuccess: boolean;
+  isSuccessBool: boolean;
 }
 
-const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccess }: contactDataProps) => {
+const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }: contactDataProps) => {
   const [isEditing, setisEditing] = useState<boolean>(false);
   const [isEdited, setisEdited] = useState<boolean>(true);
   const [status, setStatus] = useState<StatusInfoProps>(statusInfo);
   const [MessageValue, setMessageValue] = useState(message);
+  const [isSuccess, setisSuccess] = useState<boolean>(isSuccessBool);
 
   // Editing message
   const handleEdit = async () => {
@@ -57,11 +58,28 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccess }: con
   //deleting message
   const handleDelete = async () => {
     setStatus({ warning: 'Are you sure you want to delete this message?' });
-    const toDelete: boolean = confirm('Are you sure you want to delete this message?');
-    if (toDelete) {
-      const response = await axios.delete('/api/contact/message', { data: { id } });
-      console.log(response);
-    }
+
+    setTimeout(async () => {
+      const toDelete: boolean = confirm('Are you sure you want to delete this message?');
+      if (toDelete) {
+        try {
+          const response = await axios.delete('/api/contact/message', { data: { id } });
+          const { data } = response;
+          console.log(response);
+          setStatus({ success: data.status });
+          setisSuccess(!data.success);
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            setStatus({
+              error: error.response?.data?.status || 'An unexpected error occurred.',
+            });
+            setisSuccess(!error.response?.data?.success);
+          }
+        }
+      } else {
+        setStatus({ info: 'Message deletion canceled.' });
+      }
+    }, 100);
   };
 
   return (
@@ -116,7 +134,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccess }: con
               className="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
               type="button"
             >
-              Retry
+              Resend again
             </button>
           )}
         </div>
