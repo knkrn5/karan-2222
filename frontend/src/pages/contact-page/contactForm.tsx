@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send } from 'lucide-react';
+import { Send, Loader2 } from 'lucide-react';
 import axios from 'axios';
 
 import SeeContactInfo from './seeContactInfo';
@@ -29,7 +29,6 @@ export default function ContactForm() {
     name: '',
     email: '',
     message: '',
-
   });
 
   const [error, setError] = useState<FormDataProp>({
@@ -38,9 +37,10 @@ export default function ContactForm() {
     message: '',
   });
 
+  const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  const [serverMsg, setServerMsg] = useState<serverMsgProp>({ name: '', email: '', message: '', id: ''  });
+  const [serverMsg, setServerMsg] = useState<serverMsgProp>({ name: '', email: '', message: '', id: '' });
   const [statusInfo, setStatusInfo] = useState<StatusInfoProps>({});
 
   // robust email regex
@@ -48,6 +48,7 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
     // Calculate errors synchronously
     const newErrors = {
@@ -60,6 +61,7 @@ export default function ContactForm() {
     // Check if any errors exist
     const hasErrors = Object.values(newErrors).some((error) => error !== '');
     if (hasErrors) {
+      setIsLoading(false);
       return;
     }
 
@@ -75,14 +77,15 @@ export default function ContactForm() {
       setServerMsg({ name: data.data.Name, email: data.data.Email, message: data.data.Message, id: data.data._id });
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        // console.log(error.response?.data.data);
         setServerMsg(error.response?.data.data);
         setIsSuccess(error.response?.data.success);
         setStatusInfo({ error: error.response?.data.status });
       } else {
         console.error('Unexpected Error:', error);
+        setStatusInfo({ error: 'An unexpected error occurred' });
       }
     } finally {
+      setIsLoading(false);
       setIsSubmitted(true);
     }
   };
@@ -103,7 +106,14 @@ export default function ContactForm() {
   return (
     <>
       {isSubmitted ? (
-        <SeeContactInfo name={serverMsg.name} email={serverMsg.email} message={serverMsg.message} id={serverMsg.id} statusInfo={statusInfo} isSuccessBool={isSuccess}  />
+        <SeeContactInfo 
+          name={serverMsg.name} 
+          email={serverMsg.email} 
+          message={serverMsg.message} 
+          id={serverMsg.id} 
+          statusInfo={statusInfo} 
+          isSuccessBool={isSuccess} 
+        />
       ) : (
         <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-8 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -118,7 +128,8 @@ export default function ContactForm() {
                 maxLength={30}
                 value={formData.name}
                 onChange={handleChange}
-                className="mt-1 p-3 bg-white block w-full outline-none rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
+                disabled={isLoading}
+                className="mt-1 p-3 bg-white block w-full outline-none rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="Name"
               />
               {error.name && <p className="text-red-600 text-sm">{error.name}</p>}
@@ -135,7 +146,8 @@ export default function ContactForm() {
                 maxLength={50}
                 value={formData.email}
                 onChange={handleChange}
-                className="mt-1 p-3 bg-white block w-full outline-none rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
+                disabled={isLoading}
+                className="mt-1 p-3 bg-white block w-full outline-none rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="Email"
               />
               {error.email && <p className="text-red-600 text-sm">{error.email}</p>}
@@ -153,7 +165,8 @@ export default function ContactForm() {
                 maxLength={200}
                 value={formData.message}
                 onChange={handleChange}
-                className="mt-1 p-3 bg-white block w-full outline-none rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
+                disabled={isLoading}
+                className="mt-1 p-3 bg-white block w-full outline-none rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="Message Me..."
               />
               <div className="flex justify-between">
@@ -164,10 +177,20 @@ export default function ContactForm() {
 
             <button
               type="submit"
-              className="inline-flex items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white transition-colors bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500"
+              disabled={isLoading}
+              className="inline-flex items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white transition-colors bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {!isSubmitted ? 'Send Message' : 'Submit'}
-              <Send className="ml-2 -mr-1 h-5 w-5" />
+              {isLoading ? (
+                <>
+                  <Loader2 className="animate-spin h-5 w-5 mr-2" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  Send Message
+                  <Send className="ml-2 -mr-1 h-5 w-5" />
+                </>
+              )}
             </button>
           </form>
         </div>

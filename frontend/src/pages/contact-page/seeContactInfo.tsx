@@ -29,6 +29,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
   const handleEdit = async () => {
     if (isEditing) {
       try {
+        setStatus({ info: 'Saving changes...' });
         const response = await axios.put('/api/contact/message', {
           id,
           message: MessageValue,

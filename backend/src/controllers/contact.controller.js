@@ -1,6 +1,5 @@
 import { Contact } from "../models/contact.model.js";
 
-
 // Adding Contact information
 const contactInfo = async (req, res) => {
   try {
