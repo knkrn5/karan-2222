@@ -55,8 +55,13 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccess }: con
   };
 
   //deleting message
-  const handleDelete = () => {
+  const handleDelete = async () => {
     setStatus({ warning: 'Are you sure you want to delete this message?' });
+    const toDelete: boolean = confirm('Are you sure you want to delete this message?');
+    if (toDelete) {
+      const response = await axios.delete('/api/contact/message', { data: { id } });
+      console.log(response);
+    }
   };
 
   return (
