@@ -1,5 +1,6 @@
-import {  useRef, useState } from 'react';
+import { useState } from 'react';
 import StatusNotifications from './StatusNotifications';
+import axios from 'axios';
 
 interface StatusInfoProps {
   success?: string;
@@ -19,11 +20,12 @@ interface contactDataProps {
 const SeeContactInfo = ({ name, email, message, statusInfo, isSuccess }: contactDataProps) => {
   const [isEditing, setisEditing] = useState<boolean>(false);
   const [status, setStatus] = useState<StatusInfoProps>(statusInfo);
-
   const [MessageValue, setMessageValue] = useState(message);
 
-  const msg = useRef(null);
-
+  const handleEdit = () => {
+    setisEditing(!isEditing);
+    setStatus({ info: 'Edit Message' });
+  };
 
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-5 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
@@ -32,13 +34,18 @@ const SeeContactInfo = ({ name, email, message, statusInfo, isSuccess }: contact
         <h5 className="mb-1 text-xl font-extrabold text-gray-900 dark:text-white">{name.toLocaleUpperCase()}</h5>
         <p className="text-sm text-gray-500 dark:text-gray-400">{email}</p>
         {isEditing ? (
-          //prettier-ignore
-          <textarea className="w-3/4 text-sm p-4 m-2 break-all bg-white rounded-2xl  dark:bg-gray-700 dark:text-white"
-           title="Edit Message" 
-           placeholder="Message..."
-            value={MessageValue} 
-            ref={msg}
-            onChange={(e) => setMessageValue(e.target.value)}/>
+          <>
+            <textarea
+              className="w-3/4 h-fit text-sm p-4 m-2 break-all bg-white outline-none rounded-2xl  dark:bg-gray-700 dark:text-white"
+              title="Edit Message"
+              minLength={10}
+              maxLength={200}
+              placeholder="Message..."
+              value={MessageValue}
+              onChange={(e) => setMessageValue(e.target.value)}
+            />
+            <p className="text-sm text-gray-500 dark:text-gray-400">{MessageValue.length}/200 Characters</p>
+          </>
         ) : (
           <p className="w-3/4 text-sm p-4 m-2 break-all bg-white rounded-2xl  dark:bg-gray-700 dark:text-white">{MessageValue}</p>
         )}
@@ -47,10 +54,7 @@ const SeeContactInfo = ({ name, email, message, statusInfo, isSuccess }: contact
             <>
               <button
                 className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                onClick={() => {
-                  setisEditing(!isEditing);
-                  setStatus({ info: 'Edit Message' });
-                }}
+                onClick={handleEdit}
               >
                 {isEditing ? 'Save Message' : 'Edit Message'}
               </button>
