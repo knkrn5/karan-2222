@@ -4,10 +4,17 @@ import axios from 'axios';
 
 import SeeContactInfo from './seeContactInfo';
 
-interface FormData {
+interface FormDataProp {
   name: string;
   email: string;
   message: string;
+}
+
+interface serverMsgProp {
+  name: string;
+  email: string;
+  message: string;
+  id: string;
 }
 
 interface StatusInfoProps {
@@ -18,13 +25,14 @@ interface StatusInfoProps {
 }
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<FormDataProp>({
     name: '',
     email: '',
     message: '',
+
   });
 
-  const [error, setError] = useState<FormData>({
+  const [error, setError] = useState<FormDataProp>({
     name: '',
     email: '',
     message: '',
@@ -32,7 +40,7 @@ export default function ContactForm() {
 
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  const [serverMsg, setServerMsg] = useState<FormData>({ name: '', email: '', message: '' });
+  const [serverMsg, setServerMsg] = useState<serverMsgProp>({ name: '', email: '', message: '', id: ''  });
   const [statusInfo, setStatusInfo] = useState<StatusInfoProps>({});
 
   // robust email regex
@@ -64,7 +72,7 @@ export default function ContactForm() {
 
       // Reset form
       setFormData({ name: '', email: '', message: '' });
-      setServerMsg({ name: data.data.Name, email: data.data.Email, message: data.data.Message });
+      setServerMsg({ name: data.data.Name, email: data.data.Email, message: data.data.Message, id: data.data._id });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data.data);
@@ -87,7 +95,7 @@ export default function ContactForm() {
     }));
 
     // Clear error when user starts typing
-    if (error[name as keyof FormData]) {
+    if (error[name as keyof FormDataProp]) {
       setError((prev) => ({ ...prev, [name]: '' }));
     }
   };
@@ -95,7 +103,7 @@ export default function ContactForm() {
   return (
     <>
       {isSubmitted ? (
-        <SeeContactInfo name={serverMsg.name} email={serverMsg.email} message={serverMsg.message} statusInfo={statusInfo} isSuccess={isSuccess} />
+        <SeeContactInfo name={serverMsg.name} email={serverMsg.email} message={serverMsg.message} id={serverMsg.id} statusInfo={statusInfo} isSuccess={isSuccess}  />
       ) : (
         <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-8 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-6">

@@ -10,7 +10,7 @@ function Contact() {
         <p className="text-lg text-gray-600 dark:text-gray-300">Have a question or want to collabrate?</p>
       </div>
 
-      <div className="lg:max-w-7xl mx-auto grid grid-cols-1 p-6 lg:grid-cols-2 gap-10">
+      <div className=" mx-auto grid grid-cols-1 p-6 md:grid-cols-2 gap-10 lg:max-w-7xl">
         {/* Contact Details Section */}
         <ContactDetails />
 

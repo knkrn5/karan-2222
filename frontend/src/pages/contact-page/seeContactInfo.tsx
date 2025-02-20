@@ -13,18 +13,28 @@ interface contactDataProps {
   name: string;
   email: string;
   message: string;
+  id: string;
   statusInfo: StatusInfoProps;
   isSuccess: boolean;
 }
 
-const SeeContactInfo = ({ name, email, message, statusInfo, isSuccess }: contactDataProps) => {
+const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccess }: contactDataProps) => {
   const [isEditing, setisEditing] = useState<boolean>(false);
   const [status, setStatus] = useState<StatusInfoProps>(statusInfo);
   const [MessageValue, setMessageValue] = useState(message);
 
-  const handleEdit = () => {
+  const handleEdit = async () => {
     setisEditing(!isEditing);
     setStatus({ info: 'Edit Message' });
+
+    const response = await axios.post('/api/contact/message', { name, email, message: MessageValue });
+    // console.log(response.data.data);
+  };
+
+  console.log(id);
+
+  const handleDelete = () => {
+    setStatus({ warning: 'Are you sure you want to delete this message?' });
   };
 
   return (
@@ -58,7 +68,8 @@ const SeeContactInfo = ({ name, email, message, statusInfo, isSuccess }: contact
               >
                 {isEditing ? 'Save Message' : 'Edit Message'}
               </button>
-              <button className="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              <button className="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+              onClick={handleDelete}>
                 Delete
               </button>
             </>
