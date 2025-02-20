@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Send } from 'lucide-react';
 import axios from 'axios';
 
-import SeeData from './seeContactInfo';
+import SeeContactInfo from './seeContactInfo';
 
 interface FormData {
   name: string;
@@ -95,7 +95,7 @@ export default function ContactForm() {
   return (
     <>
       {isSubmitted ? (
-        <SeeData name={serverMsg.name} email={serverMsg.email} message={serverMsg.message} status={statusInfo} isSuccess={isSuccess} />
+        <SeeContactInfo name={serverMsg.name} email={serverMsg.email} message={serverMsg.message} statusInfo={statusInfo} isSuccess={isSuccess} />
       ) : (
         <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-8 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-6">
