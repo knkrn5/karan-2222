@@ -1,7 +1,8 @@
 import express from "express";
-import { contactInfo } from "../controllers/contact.controller.js";
+import { contactInfo, updateContactMessage } from "../controllers/contact.controller.js";
 const router = express.Router();
 
-router.route("/message").post(contactInfo);
+router.post("/message", contactInfo);
+router.put("/message", updateContactMessage);
 
 export default router;

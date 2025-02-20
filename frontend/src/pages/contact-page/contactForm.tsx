@@ -75,7 +75,7 @@ export default function ContactForm() {
       setServerMsg({ name: data.data.Name, email: data.data.Email, message: data.data.Message, id: data.data._id });
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.log(error.response?.data.data);
+        // console.log(error.response?.data.data);
         setServerMsg(error.response?.data.data);
         setIsSuccess(error.response?.data.success);
         setStatusInfo({ error: error.response?.data.status });
