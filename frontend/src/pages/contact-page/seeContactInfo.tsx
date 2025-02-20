@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {  useRef, useState } from 'react';
 import StatusNotifications from './StatusNotifications';
 
 interface StatusInfoProps {
@@ -20,9 +20,10 @@ const SeeContactInfo = ({ name, email, message, statusInfo, isSuccess }: contact
   const [isEditing, setisEditing] = useState<boolean>(false);
   const [status, setStatus] = useState<StatusInfoProps>(statusInfo);
 
-  useEffect(() => {
-    setStatus(statusInfo);
-  }, [statusInfo]);
+  const [MessageValue, setMessageValue] = useState(message);
+
+  const msg = useRef(null);
+
 
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-5 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
@@ -31,9 +32,15 @@ const SeeContactInfo = ({ name, email, message, statusInfo, isSuccess }: contact
         <h5 className="mb-1 text-xl font-extrabold text-gray-900 dark:text-white">{name.toLocaleUpperCase()}</h5>
         <p className="text-sm text-gray-500 dark:text-gray-400">{email}</p>
         {isEditing ? (
-          <textarea className="w-3/4 text-sm p-4 m-2 break-all bg-white rounded-2xl  dark:bg-gray-700 dark:text-white" title="Edit Message" placeholder="Message..." />
+          //prettier-ignore
+          <textarea className="w-3/4 text-sm p-4 m-2 break-all bg-white rounded-2xl  dark:bg-gray-700 dark:text-white"
+           title="Edit Message" 
+           placeholder="Message..."
+            value={MessageValue} 
+            ref={msg}
+            onChange={(e) => setMessageValue(e.target.value)}/>
         ) : (
-          <p className="w-3/4 text-sm p-4 m-2 break-all bg-white rounded-2xl  dark:bg-gray-700 dark:text-white">{message}</p>
+          <p className="w-3/4 text-sm p-4 m-2 break-all bg-white rounded-2xl  dark:bg-gray-700 dark:text-white">{MessageValue}</p>
         )}
         <div className="flex mt-4">
           {isSuccess ? (
