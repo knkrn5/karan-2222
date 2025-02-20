@@ -32,14 +32,14 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
     delete: boolean;
   }>({
     edit: false,
-    delete: false
+    delete: false,
   });
 
   // Editing message
   const handleEdit = async () => {
     if (isEditing) {
       try {
-        setIsLoading(prev => ({ ...prev, edit: true }));
+        setIsLoading((prev) => ({ ...prev, edit: true }));
         setStatus({ info: 'Saving changes...' });
 
         const response = await axios.put('/api/contact/message', {
@@ -61,7 +61,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
           setStatus({ error: 'An unexpected error occurred' });
         }
       } finally {
-        setIsLoading(prev => ({ ...prev, edit: false }));
+        setIsLoading((prev) => ({ ...prev, edit: false }));
       }
     } else {
       setStatus({ info: 'Editing Message' });
@@ -76,7 +76,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
     const toDelete = window.confirm('Are you sure you want to delete this message?');
     if (toDelete) {
       try {
-        setIsLoading(prev => ({ ...prev, delete: true }));
+        setIsLoading((prev) => ({ ...prev, delete: true }));
         const response = await axios.delete('/api/contact/message', { data: { id } });
         const { data } = response;
         setStatus({ success: data.status });
@@ -91,7 +91,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
           setStatus({ error: 'An unexpected error occurred' });
         }
       } finally {
-        setIsLoading(prev => ({ ...prev, delete: false }));
+        setIsLoading((prev) => ({ ...prev, delete: false }));
       }
     } else {
       setStatus({ info: 'Message deletion canceled.' });
@@ -115,7 +115,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
       >
         <h5 className="mb-1 text-xl font-extrabold text-gray-900 dark:text-white">{name.toLocaleUpperCase()}</h5>
         <p className="text-sm text-gray-500 dark:text-gray-400">{email}</p>
-        
+
         {isEditing ? (
           <div className="w-full max-w-2xl space-y-2">
             <textarea
@@ -128,14 +128,10 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
               onChange={(e) => setMessageValue(e.target.value)}
               disabled={isLoading.edit}
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400 text-right">
-              {messageValue.length}/200 Characters
-            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 text-right">{messageValue.length}/200 Characters</p>
           </div>
         ) : (
-          <p className="w-full max-w-2xl text-sm p-4 m-2 break-all bg-white rounded-2xl dark:bg-gray-700 dark:text-white">
-            {messageValue}
-          </p>
+          <p className="w-full max-w-2xl text-sm p-4 m-2 break-all bg-white rounded-2xl dark:bg-gray-700 dark:text-white">{messageValue}</p>
         )}
 
         <div className="flex gap-2 mt-4">
@@ -189,7 +185,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
           ) : (
             <button
               onClick={() => setIsResend(true)}
-              className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-700 bg-white rounded-lg border border-blue-200 duration-200 hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-100 dark:focus:ring-blue-700 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-600 dark:hover:bg-blue-700 dark:hover:text-white"
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-700 bg-white rounded-lg border border-blue-200 duration-300 hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-100 dark:focus:ring-blue-700 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-600 dark:hover:bg-blue-700 dark:hover:text-white"
               type="button"
             >
               <Send className="h-4 w-4 mr-2" />
