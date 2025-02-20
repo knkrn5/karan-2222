@@ -20,6 +20,7 @@ interface contactDataProps {
 
 const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccess }: contactDataProps) => {
   const [isEditing, setisEditing] = useState<boolean>(false);
+  const [isEdited, setisEdited] = useState(true);
   const [status, setStatus] = useState<StatusInfoProps>(statusInfo);
   const [MessageValue, setMessageValue] = useState(message);
 
@@ -31,7 +32,11 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccess }: con
           id,
           message: MessageValue,
         });
-        setStatus({ success: response.data.status });
+
+        const { data } = response;
+
+        setStatus({ success: data.status });
+        setisEdited(data.success);
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.log('Full error response:', error.response);
@@ -39,6 +44,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccess }: con
           setStatus({
             error: error.response?.data?.status || 'An unexpected error occurred.',
           });
+          setisEdited(error.response?.data?.success);
         } else {
           console.error('Unexpected Error:', error);
         }
@@ -59,7 +65,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccess }: con
       <div className="flex justify-end px-4 pt-4"></div>
       <div
         className={`flex flex-col items-center p-4 rounded-2xl ${
-          isSuccess && !isEditing ? 'shadow-[0_4px_10px_rgba(0,255,0,0.6)]' : isSuccess && isEditing ? 'shadow-[0_4px_10px_rgba(0,0,255,0.6)]' : 'shadow-[0_4px_10px_rgba(255,0,0,0.6)]'
+          isSuccess && !isEditing && isEdited ? 'shadow-[0_4px_10px_rgba(0,255,0,0.6)]' : !isSuccess && !isEditing && !isEdited ? 'shadow-[0_4px_10px_rgba(255,0,0,0.6)]' : 'shadow-[0_4px_10px_rgba(0,0,255,0.6)]'
         }`}
       >
         <h5 className="mb-1 text-xl font-extrabold text-gray-900 dark:text-white">{name.toLocaleUpperCase()}</h5>
