@@ -4,13 +4,14 @@ import { Contact } from "../models/contact.model.js";
 const contactInfo = async (req, res) => {
     try {
       const { name, email, message } = req.body;
-      console.log(name, email, message);
       
       const contactMsg = await Contact.create({ 
         Name: name, 
         Email: email, 
         Message: message 
       });
+
+      console.log(contactMsg._id);
   
       return res.status(201).json({
         success: true,
