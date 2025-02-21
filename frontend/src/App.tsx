@@ -11,7 +11,6 @@ import AboutMe from "./pages/contents/about";
 import ContactMe from "./pages/contact-page/contact";
 import ResourcesInfo from "./pages/contents/resourceCard";
 
-import Test from "./pages/test";
 import Github from "./pages/github";
 import TeamPage from "./pages/team";
 
@@ -29,7 +28,6 @@ function App() {
             <Route path="/team" element={<TeamPage />} />
             <Route path="/resourses" element={<ResourcesInfo />} />
 
-            <Route path="/test" element={<Test />} />
             <Route path="/github" element={<Github />} />
 
         </Routes>
