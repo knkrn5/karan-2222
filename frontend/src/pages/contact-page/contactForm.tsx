@@ -52,15 +52,15 @@ export default function ContactForm() {
     setIsLoading(true);
 
     // Calculate errors synchronously
-    const newErrors = {
-      name: !formData.name ? 'Name is required' : '',
+    const formFieldErrors = {
+      name: !formData.name.trim() ? 'Name is required' : formData.name.length < 3 ? 'Name must be at least 3 characters' : '',
       email: !formData.email ? 'Email is required' : !emailRegex.test(formData.email) ? 'Please enter a valid email' : '',
-      message: !formData.message ? 'Message is required' : '',
+      message: !formData.message.trim() ? 'Message is required' : formData.message.length < 10 ? 'Message must be at least 10 characters' : '',
     };
-    setError(newErrors);
+    setError(formFieldErrors);
 
     // Check if any errors exist
-    const hasErrors = Object.values(newErrors).some((error) => error !== '');
+    const hasErrors = Object.values(formFieldErrors).some((error) => error !== '');
     if (hasErrors) {
       setIsLoading(false);
       return;
@@ -108,11 +108,10 @@ export default function ContactForm() {
 
   useEffect(() => {
     const storedContactInfo = localStorage.getItem('ContactInfoLs');
-    const ContactInfoLs = storedContactInfo ? JSON.parse(storedContactInfo) : null;
-    if (ContactInfoLs) {
-      setFormData(ContactInfoLs);
+    if (storedContactInfo) {
+      setFormData(JSON.parse(storedContactInfo));
     }
-  }, [serverMsg]);
+  }, []);
 
   return (
     <>
@@ -129,6 +128,7 @@ export default function ContactForm() {
                 type="text"
                 name="name"
                 id="name"
+                // minLength={3}
                 maxLength={30}
                 value={formData.name}
                 onChange={handleChange}
@@ -165,7 +165,7 @@ export default function ContactForm() {
                 name="message"
                 id="message"
                 rows={4}
-                minLength={10}
+                // minLength={10}
                 maxLength={200}
                 value={formData.message}
                 onChange={handleChange}
