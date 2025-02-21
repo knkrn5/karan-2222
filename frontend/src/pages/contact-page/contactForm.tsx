@@ -41,7 +41,7 @@ export default function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [serverMsg, setServerMsg] = useState<serverMsgProp>({ name: '', email: '', message: '', id: '' });
-  const [statusInfo, setStatusInfo] = useState<StatusInfoProps>({});
+  const [status, setStatus] = useState<StatusInfoProps>({});
 
   // robust email regex
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -73,19 +73,21 @@ export default function ContactForm() {
       localStorage.removeItem('ContactInfoLs');
 
       setIsSuccess(data.success);
-      setStatusInfo({ success: data.status });
+      setStatus({ success: data.status });
 
       // Reset form
       setFormData({ name: '', email: '', message: '' });
       setServerMsg({ name: data.data.Name, email: data.data.Email, message: data.data.Message, id: data.data._id });
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        setServerMsg(error.response?.data.data);
-        setIsSuccess(error.response?.data.success);
-        setStatusInfo({ error: error.response?.data.status });
+        const data = error.response?.data;
+        setServerMsg(data?.data ?? { ...serverMsg, ...(JSON.parse(localStorage.getItem('ContactInfoLs') || '{}')) });
+
+        setIsSuccess(data?.success);
+        setStatus({ error: data?.status || 'An error occurred' });
       } else {
         console.error('Unexpected Error:', error);
-        setStatusInfo({ error: 'An unexpected error occurred' });
+        setStatus({ error: 'An unexpected error occurred' });
       }
     } finally {
       setIsLoading(false);
@@ -116,7 +118,7 @@ export default function ContactForm() {
   return (
     <>
       {isSubmitted ? (
-        <SeeContactInfo name={serverMsg.name} email={serverMsg.email} message={serverMsg.message} id={serverMsg.id} statusInfo={statusInfo} isSuccessBool={isSuccess} />
+        <SeeContactInfo name={serverMsg.name} email={serverMsg.email} message={serverMsg.message} id={serverMsg.id} statusInfo={status} isSuccessBool={isSuccess} />
       ) : (
         <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-8 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-6">

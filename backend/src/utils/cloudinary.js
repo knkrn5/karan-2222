@@ -4,11 +4,7 @@ import fs from "fs"
 
 // dotenv.config({ path: "./backend/.env" });
 dotenv.config({ path: ".env" });
-console.log("cloudinary name",process.env.CLOUDINARY_CLOUD_NAME)
-
-/* if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
-    throw new Error("Cloudinary configuration environment variables are not set");
-} */
+// console.log("cloudinary name",process.env.CLOUDINARY_CLOUD_NAME)
 
 
 // Configuration
