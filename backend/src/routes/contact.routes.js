@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/message", contactLimiter, contactInfo);
 router.put("/message", contactLimiter, updateContactMessage);
-router.delete("/message", contactLimiter, deleteContactMessage);
+router.delete("/message", deleteContactMessage);
 
 console.log(contactLimiter.message)
 
