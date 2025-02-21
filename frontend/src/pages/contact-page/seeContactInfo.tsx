@@ -27,6 +27,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
   const [messageValue, setMessageValue] = useState(message);
   const [isSuccess, setIsSuccess] = useState<boolean>(isSuccessBool);
   const [isResend, setIsResend] = useState<boolean>(false);
+  const [isRequired, setisRequired] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<{
     edit: boolean;
     delete: boolean;
@@ -37,6 +38,11 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
 
   // Editing message
   const handleEdit = async () => {
+    if (messageValue.length < 10) {
+      setisRequired(true);
+      return;
+    }
+    setisRequired(false);
     if (isEditing) {
       try {
         setIsLoading((prev) => ({ ...prev, edit: true }));
@@ -128,7 +134,10 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
               onChange={(e) => setMessageValue(e.target.value)}
               disabled={isLoading.edit}
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400 text-right">{messageValue.length}/200 Characters</p>
+            <div className="flex justify-between items-center text-xs ml-5">
+              {isRequired && <p className="text-red-600 ">Min 10 characters required</p>}
+              <p className="text-gray-500 dark:text-gray-400 text-right">{messageValue.length}/200 Characters</p>
+            </div>
           </div>
         ) : (
           <p className="w-full max-w-2xl text-sm p-4 m-2 break-all bg-white rounded-2xl dark:bg-gray-700 dark:text-white">{messageValue}</p>
