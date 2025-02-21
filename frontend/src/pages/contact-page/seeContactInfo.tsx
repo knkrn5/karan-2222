@@ -63,7 +63,6 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
           });
           setIsEdited(error.response?.data?.success);
         } else {
-          console.error('Unexpected Error:', error);
           setStatus({ error: 'An unexpected error occurred' });
         }
       } finally {
