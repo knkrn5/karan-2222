@@ -6,12 +6,12 @@ type socialLinks = {
   youtube: string;
 };
 
-type TeamMember = {
+/* type TeamMember = {
   name: string;
   role: string;
   image: string;
   social: socialLinks;
-};
+}; */
 
 // in factory function name have to be same
 /* function createTeamMember(name: string, role: string, image: string, social: socialLinks): TeamMember {
