@@ -177,7 +177,8 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
               </button>
 
               <button
-                className="inline-flex items-center px-4 py-2 text-sm font-medium text-red-700 bg-white rounded-lg border border-red-200 duration-300 hover:bg-red-50 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-700 dark:bg-gray-800 dark:text-red-400 dark:border-red-600 dark:hover:bg-red-700 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                // className="inline-flex items-center px-4 py-2 text-sm font-medium text-red-700 bg-white rounded-lg border border-red-200 duration-300 hover:bg-red-50 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-700 dark:bg-gray-800 dark:text-red-400 dark:border-red-600 dark:hover:bg-red-700 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center px-4 py-2 text-sm font-medium text-red-700 bg-white rounded-lg border border-red-600 duration-300 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-700 dark:bg-gray-800 dark:text-red-400 disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={handleDelete}
                 disabled={isLoading.edit || isLoading.delete}
               >
@@ -197,7 +198,8 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
           ) : (
             <button
               onClick={() => setIsResend(true)}
-              className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-700 bg-white rounded-lg border border-blue-200 duration-300 hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-100 dark:focus:ring-blue-700 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-600 dark:hover:bg-blue-700 dark:hover:text-white"
+              // className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-700 bg-white rounded-lg border border-blue-200 duration-300 hover:bg-blue-50 focus:ring-4 focus:outline-none focus:ring-blue-100 dark:focus:ring-blue-700 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-600 dark:hover:bg-blue-700 dark:hover:text-white"
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-700 bg-white rounded-lg border border-blue-600 duration-300  focus:ring-4 focus:outline-none hover:bg-blue-700 hover:text-white focus:ring-blue-700 dark:bg-gray-800 dark:text-blue-400 "
               type="button"
             >
               <Send className="h-4 w-4 mr-2" />

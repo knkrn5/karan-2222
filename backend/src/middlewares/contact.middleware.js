@@ -1,9 +1,15 @@
 import rateLimit from 'express-rate-limit';
 
-const contactLimiter = rateLimit({
+const contactPostLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 60 minutes
-  max: 5, // Limit each IP to 5 requests
+  max: 3, // Limit each IP to 3 requests
   message: { success: false, status: "Too many requests sent..." },
 });
 
-export { contactLimiter };
+const contactPutLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 60 minutes
+  max: 2, // Limit each IP to 2 requests
+  message: { success: false, status: "Too many requests sent..." },
+});
+
+export { contactPostLimiter, contactPutLimiter };

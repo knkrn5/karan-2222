@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Send, Loader2 } from 'lucide-react';
 import axios from 'axios';
 
-// const API_URL = "https://karan-2222.onrender.com";
+const API_URL = "https://karan-2222.onrender.com";
 
 import SeeContactInfo from './seeContactInfo';
 
