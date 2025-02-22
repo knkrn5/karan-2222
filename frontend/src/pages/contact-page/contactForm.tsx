@@ -85,7 +85,7 @@ export default function ContactForm() {
         const data = error.response?.data;
 
        /*  const isEmpty = (value: serverMsgProp) => value == null || (typeof value === 'object' && Object.keys(value).length === 0);
-        if (!isEmpty(data?.data)) {
+        if (isEmpty(data?.data)) {
           setServerMsg({ ...serverMsg, ...JSON.parse(localStorage.getItem('ContactInfoLs') || '{}') });
         } */
 
