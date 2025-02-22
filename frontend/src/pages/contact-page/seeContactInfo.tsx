@@ -107,6 +107,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
     }
   };
 
+  //component switching
   if (isResend) {
     return <ContactForm />;
   }
