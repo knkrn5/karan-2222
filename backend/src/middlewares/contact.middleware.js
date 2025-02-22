@@ -2,13 +2,17 @@ import rateLimit from 'express-rate-limit';
 
 const contactPostLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 60 minutes
-  max: 3, // Limit each IP to 3 requests
+  max: 3,
+  standardHeaders: true,
+  legacyHeaders: false,
   message: { success: false, status: "Too many requests sent..." },
 });
 
 const contactPutLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 60 minutes
-  max: 2, // Limit each IP to 2 requests
+  windowMs: 60 * 60 * 1000,
+  max: 2,
+  standardHeaders: true,
+  legacyHeaders: false,
   message: { success: false, status: "Too many requests sent..." },
 });
 
