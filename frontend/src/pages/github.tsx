@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface GithubInfo {
   id: number;
@@ -13,8 +13,8 @@ export default function Github() {
 
   useEffect(() => {
     axios
-      //   .get("https://api.github.com/users/knkrn5")
-      .get("/api/github")
+      .get('https://karan-2222.onrender.com/api/github/')
+      // .get("/api/githubs")
       .then((res) => {
         console.log(res);
         setgithubInfo(res.data.user);
@@ -32,15 +32,9 @@ export default function Github() {
       <div className="flex flex-wrap justify-center gap-4 w-[300px] mx-auto m-4 items-center p-6 bg-slate-500 ">
         {githubInfo && (
           <>
-            <div className="font-bold bg-amber-300 rounded-2xl p-4 ">
-              {githubInfo.name}
-            </div>
-            <div className="font-bold bg-amber-300 rounded-2xl p-4 ">
-              {githubInfo.login}
-            </div>
-            <div className="font-bold bg-amber-300 rounded-2xl p-4 ">
-              {githubInfo.avatar_url}
-            </div>
+            <div className="font-bold bg-amber-300 rounded-2xl p-4 ">{githubInfo.name}</div>
+            <div className="font-bold bg-amber-300 rounded-2xl p-4 ">{githubInfo.login}</div>
+            <div className="font-bold bg-amber-300 rounded-2xl p-4 ">{githubInfo.avatar_url}</div>
           </>
         )}
       </div>

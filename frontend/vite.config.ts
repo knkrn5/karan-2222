@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  server: {
+  /* server: {
     proxy: {
       '/api': {
         target: 'https://karan-2222.onrender.com/',
@@ -13,5 +13,5 @@ export default defineConfig({
         // rewrite: (path) => path.replace(/^\/api/, ''),
       },
     }
-  }
+  } */
 })
