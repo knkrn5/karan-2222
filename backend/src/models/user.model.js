@@ -83,14 +83,10 @@ userSchema.methods.generateRefreshToken = function() {
 };
 
 
+
+
+
 export const User = mongoose.model("User", userSchema);
 
 
 
-/* userSchema.methods.generateToken = function () {
-  return jwt.sign({ userId: this._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-};
-
-userSchema.methods.generateRefreshToken = function () {
-  return jwt.sign({ userId: this._id }, process.env.JWT_REFRESH_SECRET, { expiresIn: "7d" });
-}; */

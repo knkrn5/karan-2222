@@ -112,7 +112,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
   }
 
   return (
-    <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-5 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
+    <div className="bg-gradient-to-br from-gray-300 via-gray-100 to-gray-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-5 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
       <div
         className={`flex flex-col items-center p-4 rounded-2xl ${
           isSuccess && !isEditing && isEdited

@@ -2,7 +2,8 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 
 export default function contactDetails() {
   return (
-    <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-8 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
+    // <div className="bg-gradient-to-br from-indigo-50 via-purple-100 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-8 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
+    <div className="bg-gradient-to-br from-gray-300 via-gray-100 to-gray-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-8 rounded-2xl shadow-lg duration-300 hover:drop-shadow-2xl">
       <div className="space-y-8">
         <div className="flex items-start space-x-6 rounded-2xl p-1 bg-gray-100 shadow-sm dark:bg-slate-700">
           <div className="flex-shrink-0">
