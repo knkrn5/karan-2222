@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Send, Loader2 } from 'lucide-react';
 import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 import SeeContactInfo from './seeContactInfo';
 
@@ -67,7 +69,7 @@ export default function ContactForm() {
     }
 
     try {
-      const response = await axios.post('/api/contact/message', formData);
+      const response = await axios.post(`${API_URL}/api/contact/message`, formData);
       const { data } = response;
 
       localStorage.removeItem('ContactInfoLs');

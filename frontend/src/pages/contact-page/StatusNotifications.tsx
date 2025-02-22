@@ -20,25 +20,25 @@ export default function StatusNotifications({ statusInfo }: { statusInfo: Status
       {status.success && (
         <div className="flex items-center w-fit mx-auto bg-green-600 text-white px-4 py-2 rounded-lg">
           <CircleCheck className="mr-2" />
-          <span>{status.success}</span>
+          <span>Success- {status.success}</span>
         </div>
       )}
       {status.info && (
         <div className="flex items-center w-fit mx-auto bg-blue-600 text-white px-4 py-2 rounded-lg">
           <Info className="mr-2" />
-          <span>{status.info}</span>
+          <span> {status.info}</span>
         </div>
       )}
       {status.warning && (
         <div className="flex items-center w-fit mx-auto bg-yellow-600 text-white px-4 py-2 rounded-lg">
           <OctagonAlert className="mr-2" />
-          <span>{status.warning}</span>
+          <span>Warning- {status.warning}</span>
         </div>
       )}
       {status.error && (
         <div className="flex items-center w-fit mx-auto bg-red-600 text-white px-4 py-2 rounded-lg">
           <CircleX className="mr-2" />
-          <span>{status.error}</span>
+          <span>Failed - {status.error}</span>
         </div>
       )}
     </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import StatusNotifications from './StatusNotifications';
 import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL;
 import ContactForm from './contactForm';
 import { Loader2, Send, Edit, Save, Trash } from 'lucide-react';
 
@@ -48,7 +49,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
         setIsLoading((prev) => ({ ...prev, edit: true }));
         setStatus({ info: 'Saving changes...' });
 
-        const response = await axios.put('/api/contact/message', {
+        const response = await axios.put(`${API_URL}/api/contact/message`, {
           id,
           message: messageValue,
         });
@@ -82,7 +83,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
     if (toDelete) {
       try {
         setIsLoading((prev) => ({ ...prev, delete: true }));
-        const response = await axios.delete('/api/contact/message', { data: { id } });
+        const response = await axios.delete(`${API_URL}/api/contact/message`, { data: { id } });
         const { data } = response;
         setStatus({ success: data.status });
         setIsSuccess(!data.success);
