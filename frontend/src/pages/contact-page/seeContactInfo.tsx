@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import StatusNotifications from './StatusNotifications';
 import axios from 'axios';
-const API_URL = import.meta.env.VITE_API_URL;
+
 import ContactForm from './contactForm';
 import { Loader2, Send, Edit, Save, Trash } from 'lucide-react';
+
+const API_URL = "https://karan-2222.onrender.com";
+
 
 interface StatusInfoProps {
   success?: string;
