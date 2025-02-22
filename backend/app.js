@@ -2,8 +2,26 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
+//monotholic
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 
 const app = express();
+
+//monotholic
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+// Serve the frontend build files
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+// Send index.html for any unknown routes (for React Router) 
+// optional
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+  });
 
 
 const corsOptions = {
@@ -27,8 +45,8 @@ app.use(cookieParser());
 
 
 //routes imports
-import userRoutes from "./routes/user.routes.js";
-import contactRoutes from "./routes/contact.routes.js";
+import userRoutes from "./src/routes/user.routes.js";
+import contactRoutes from "./src/routes/contact.routes.js";
 
 
 //routes

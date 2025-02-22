@@ -6,7 +6,7 @@ import { app } from "./app.js";
 dotenv.config();
 // console.log("MongoDB URL:", process.env.MONGO_URL);
 
-import connectDB from "../db/index.js";
+import connectDB from "./db/index.js";
 
 
 

@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Send, Loader2 } from 'lucide-react';
 import axios from 'axios';
 
-
-const API_URL = "https://karan-2222.onrender.com";
-
-
+// const API_URL = "https://karan-2222.onrender.com";
 
 import SeeContactInfo from './seeContactInfo';
 
@@ -86,13 +83,19 @@ export default function ContactForm() {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const data = error.response?.data;
-        setServerMsg(data?.data ?? { ...serverMsg, ...(JSON.parse(localStorage.getItem('ContactInfoLs') || '{}')) });
+
+       /*  const isEmpty = (value: serverMsgProp) => value == null || (typeof value === 'object' && Object.keys(value).length === 0);
+        if (!isEmpty(data?.data)) {
+          setServerMsg({ ...serverMsg, ...JSON.parse(localStorage.getItem('ContactInfoLs') || '{}') });
+        } */
+
+        setServerMsg(data?.data ?? { ...serverMsg, ...JSON.parse(localStorage.getItem('ContactInfoLs') || '{}') });
 
         setIsSuccess(data?.success);
         setStatus({ error: data?.status || 'An error occurred' });
       } else {
-        console.error('Unexpected Error:', error);
         setStatus({ error: 'An unexpected error occurred' });
+        setServerMsg( { ...serverMsg, ...JSON.parse(localStorage.getItem('ContactInfoLs') || '{}') });
       }
     } finally {
       setIsLoading(false);
