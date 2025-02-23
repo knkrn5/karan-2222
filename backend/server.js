@@ -68,6 +68,6 @@ app.get('/api/github', (req, res) => {
 
 
 app.get('*', (req, res) => {
-  res.redirect('https://karan-2222-1.onrender.com');
+  res.redirect(process.env.FRONTEND_URL);
   // res.redirect('http://localhost:5173');
 });

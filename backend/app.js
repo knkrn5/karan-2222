@@ -5,25 +5,6 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 
-/* //monotholic Deployment
-// import path from 'path';
-// import { fileURLToPath } from 'url';
-
-//monotholic
-/* const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename); */
-
-
-// Serve the frontend build files
-// app.use(express.static(path.join(__dirname, '../frontend/dist')));
-
-// Send index.html for any unknown routes (for React Router) 
-// optional
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-// }); */
-
-
 
 //Middleware in Express processes requests in the order it’s defined.
 // Middleware setup

@@ -23,5 +23,12 @@ dist-ssr
 *.sln
 *.sw?
 
+# dotenv environment variables file
+.env
+.env.test
+.env.production
+
 #other
 tests/
+# backend/
+.gitignore
