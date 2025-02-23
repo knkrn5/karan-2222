@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+// const API_URL = 'https://karan-2222.onrender.com';
+// const API_URL = 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 interface GithubInfo {
   id: number;
   login: string;
@@ -13,7 +18,7 @@ export default function Github() {
 
   useEffect(() => {
     axios
-      .get(`/api/github/`)
+      .get(`${API_URL}/api/github/`)
       // .get("/api/githubs")
       .then((res) => {
         console.log(res);
