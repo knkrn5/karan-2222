@@ -46,7 +46,6 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 
-
 //routes imports
 import userRoutes from "./src/routes/user.routes.js";
 import contactRoutes from "./src/routes/contact.routes.js";

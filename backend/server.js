@@ -20,12 +20,9 @@ connectDB()
     console.log("mongodb connection error", error);
   });
 
-app.get("/", (req, res) => {
-  res.json("hii , this is backend home")
-})
 
-app.get("/test", (req, res) => {
-  res.send("test route")
+app.get("/health", (req, res) => {
+  res.send("health ok :)");
 })
 
 app.get('/api/github', (req, res) => {
@@ -67,4 +64,10 @@ app.get('/api/github', (req, res) => {
       "updated_at": "2025-02-06T07:34:14Z"
     }
   })
+});
+
+
+app.get('*', (req, res) => {
+  res.redirect('https://karan-2222-1.onrender.com');
+  // res.redirect('http://localhost:5173');
 });
