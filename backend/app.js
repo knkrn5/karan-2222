@@ -12,6 +12,7 @@ const corsOptions = {
   origin: [
     'https://karan-2222-1.onrender.com', // Production frontend
     'http://localhost:5173',             // Local frontend (Vite default port)
+    'http://localhost:3000',             // Local frontend (Vite default port)
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
