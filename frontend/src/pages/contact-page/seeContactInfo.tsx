@@ -8,8 +8,6 @@ import { Loader2, Send, Edit, Save, Trash } from 'lucide-react';
 // const API_URL = "https://karan-2222.onrender.com";
 const API_URL = import.meta.env.VITE_API_URL;
 
-
-
 interface StatusInfoProps {
   success?: string;
   info?: string;
@@ -119,10 +117,10 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
       <div
         className={`flex flex-col items-center p-4 rounded-2xl ${
           isSuccess && !isEditing && isEdited
-            ? 'shadow-[0_4px_10px_rgba(0,255,0,0.6)]'
+            ? 'shadow-[0_4px_30px_rgba(0,255,0,0.2)]'
             : !isSuccess || (isSuccess && !isEditing && !isEdited)
-            ? 'shadow-[0_4px_10px_rgba(255,0,0,0.6)]'
-            : 'shadow-[0_4px_10px_rgba(0,0,255,0.6)]'
+            ? 'shadow-[0_4px_30px_rgba(255,0,0,0.2)]'
+            : 'shadow-[0_4px_30px_rgba(0,0,255,0.2)]'
         }`}
       >
         <h5 className="mb-1 text-xl font-extrabold text-gray-900 dark:text-white">{name.toLocaleUpperCase()}</h5>
