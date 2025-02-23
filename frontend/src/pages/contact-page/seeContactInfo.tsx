@@ -82,7 +82,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
 
   // Deleting message
   const handleDelete = async () => {
-    setStatus({ warning: 'Deleting Message...' });
+    setStatus({ info: 'Deleting Message...' });
 
     const toDelete = window.confirm('Are you sure you want to delete this message?');
     if (toDelete) {
@@ -105,7 +105,7 @@ const SeeContactInfo = ({ name, email, message, id, statusInfo, isSuccessBool }:
         setIsLoading((prev) => ({ ...prev, delete: false }));
       }
     } else {
-      setStatus({ info: 'Message deletion canceled.' });
+      setStatus({ warning: 'Message deletion canceled.' });
     }
   };
 
